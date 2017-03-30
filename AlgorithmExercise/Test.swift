@@ -11,7 +11,7 @@ import Foundation
 func testPartition(){
     for _ in 0..<5000{
         //var arr = [5,4,7,8,10,6]
-        var arr = randIntArr(3)
+        var arr = ALGUtils.randIntArr(3)
         //        print("before partition arr: \(arr)")
         
         //let q = partition(&arr, p: 0, r: arr.count - 1)
@@ -33,20 +33,20 @@ func testPartition(){
 
 func testSort(){
     for _ in 0..<1000{
-        var arr = randIntArr(50)
+        var arr = ALGUtils.randIntArr(50)
         print("before sort arr: \(arr)")
         
         //        quickSort(&arr, p: 0, r: arr.count - 1)
         insertSort(&arr, p: 0, r: arr.count - 1)
         print("after sort arr: \(arr)")
         
-        assertOrder(arr: arr)
+        ALGUtils.assertOrder(arr: arr)
         
     }
 }
 
 func testHeap(){
-    let arr = randIntArr(75)
+    let arr = ALGUtils.randIntArr(75)
     print("before build heap arr: \(arr)")
     let h = MyHeap(arr: Array<Int>())
     for e in arr {

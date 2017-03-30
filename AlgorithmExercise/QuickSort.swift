@@ -14,7 +14,7 @@ func partition<T:Comparable>(_ arr:inout [T],p:Int,r:Int)->Int{
     for j in p..<r+1{
         if arr[j] <= x {
             i += 1
-            swap(&arr, i, j)
+            arr.swap(i,j)
         }
     }
     return i
@@ -23,7 +23,7 @@ func partition<T:Comparable>(_ arr:inout [T],p:Int,r:Int)->Int{
 
 func randomPartition<T:Comparable>(_ arr:inout [T],p:Int,r:Int)->Int{
     let i = Int(arc4random_uniform(UInt32(r - p + 1))) + p
-    swap(&arr, i, r)
+    arr.swap(i,r)
     return partition(&arr, p: p, r: r)
 }
 
@@ -31,7 +31,7 @@ func betterRandomPartition<T:Comparable>(_ arr:inout [T],p:Int,r:Int)->Int{
     //    let i = Int(arc4random_uniform(UInt32(r - p + 1))) + p
     //    print("in partition arr: \(arr) and p: \(p) r: \(r)")
     let i = p
-    swap(&arr, i, r)
+    arr.swap(i,r)
     
     let x = arr[r]
     var j = p - 1
@@ -47,20 +47,20 @@ func betterRandomPartition<T:Comparable>(_ arr:inout [T],p:Int,r:Int)->Int{
         }while k >= p && arr[k] > x
         
         if j <= r - 1 && k >= p && j < k {
-            swap(&arr, j, k)
+            arr.swap(j,k)
         }else{
             if j == r {
                 return r
             }
             if k == p - 1 {
-                swap(&arr, p, r)
+                arr.swap(p,r)
                 return p
             }
             break
         }
     }
     
-    swap(&arr, j, r)
+    arr.swap(j,r)
     
     return j
 }
@@ -68,16 +68,16 @@ func betterRandomPartition<T:Comparable>(_ arr:inout [T],p:Int,r:Int)->Int{
 func betterPartition<T:Comparable>(_ arr:inout [T],p:Int,r:Int)->Int{
     let i = (p + r - 1)/2
     if arr[p] > arr[i]{
-        swap(&arr, p, i)
+        arr.swap(p,i)
     }
     if arr[i] > arr[r - 1]{
-        swap(&arr, i, r - 1)
+        ALGUtils.swap(&arr, i, r - 1)
         if arr[p] > arr[i]{
-            swap(&arr, p, i)
+            arr.swap(p,i)
         }
     }
     
-    swap(&arr, i, r)
+    arr.swap(i,r)
     
     let x = arr[r]
     var j = p
@@ -93,13 +93,13 @@ func betterPartition<T:Comparable>(_ arr:inout [T],p:Int,r:Int)->Int{
         }while k > p && arr[k] > x
         
         if j < r - 1 && k > p && j < k {
-            swap(&arr, j, k)
+            arr.swap(j,k)
         }else{
             break
         }
     }
     
-    swap(&arr, j, r)
+    arr.swap(j,r)
     
     return j
 }

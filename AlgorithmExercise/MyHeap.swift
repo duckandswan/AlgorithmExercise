@@ -36,7 +36,7 @@ class MyHeap<T:Comparable> {
             }
             
             if heapArr[p] > heapArr[c]{
-                swap(&heapArr, p, c)
+                heapArr.swap(p,c)
                 p = c
             }else{
                 break
@@ -66,7 +66,7 @@ class MyHeap<T:Comparable> {
                 print("\(e) ", terminator: "")
                 arr.append(e)
             }else{
-                assertOrder(arr: arr)
+                ALGUtils.assertOrder(arr: arr)
                 break
             }
         }
@@ -74,7 +74,7 @@ class MyHeap<T:Comparable> {
     
     private func pop()->T?{
         if heapArr.count > 0 {
-            swap(&heapArr, 0, heapArr.count - 1)
+            heapArr.swap(0,heapArr.count - 1)
             let e = heapArr.popLast()
             heapify(i: 0)
             return e
@@ -100,7 +100,7 @@ class MyHeap<T:Comparable> {
             }
             
             if heapArr[p] > heapArr[c]{
-                swap(&heapArr, p, c)
+                heapArr.swap(p,c)
                 if p == 0 {
                     break
                 }

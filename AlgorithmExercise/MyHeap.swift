@@ -46,6 +46,7 @@ class MyHeap<T:Comparable> {
     }
     
     func assertHeap(){
+        print("\nheap is :\n")
         heapArr.enumerated().forEach { (i,e) in
             print("\(e) ",terminator: "")
             if [0,2,6,14,30,62,126].first(where: {return $0 == i})
@@ -63,7 +64,6 @@ class MyHeap<T:Comparable> {
         var arr:[T] = []
         while true{
             if let e = pop(){
-                print("\(e) ", terminator: "")
                 arr.append(e)
             }else{
                 ALGUtils.assertOrder(arr: arr)

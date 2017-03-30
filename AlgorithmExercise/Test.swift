@@ -34,11 +34,11 @@ func testPartition(){
 func testSort(){
     for _ in 0..<1000{
         var arr = ALGUtils.randIntArr(50)
-        print("before sort arr: \(arr)")
+        print("before sort arr: \n\(arr)")
         
         //        quickSort(&arr, p: 0, r: arr.count - 1)
         insertSort(&arr, p: 0, r: arr.count - 1)
-        print("after sort arr: \(arr)")
+        print("after sort arr: \n\(arr)")
         
         ALGUtils.assertOrder(arr: arr)
         
@@ -47,12 +47,13 @@ func testSort(){
 
 func testHeap(){
     let arr = ALGUtils.randIntArr(75)
-    print("before build heap arr: \(arr)")
+    print("before build heap arr: \n\(arr)")
     let h = MyHeap(arr: Array<Int>())
     for e in arr {
         h.insert(t: e)
     }
     h.assertHeap()
     h.sort()
+    print("after sort arr: \n\(arr)")
 }
 

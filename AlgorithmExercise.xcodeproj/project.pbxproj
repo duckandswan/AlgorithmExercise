@@ -17,6 +17,7 @@
 		E825993B1E8D3C9C0073A90A /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82599361E8D3C9C0073A90A /* Test.swift */; };
 		E825993C1E8D3C9C0073A90A /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82599371E8D3C9C0073A90A /* Tool.swift */; };
 		E825993E1E8D48240073A90A /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825993D1E8D48240073A90A /* Array+Extension.swift */; };
+		E82599401E8D5A650073A90A /* RBTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825993F1E8D5A650073A90A /* RBTree.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		E82599361E8D3C9C0073A90A /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		E82599371E8D3C9C0073A90A /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		E825993D1E8D48240073A90A /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		E825993F1E8D5A650073A90A /* RBTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBTree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				E82599361E8D3C9C0073A90A /* Test.swift */,
 				E82599371E8D3C9C0073A90A /* Tool.swift */,
 				E825993D1E8D48240073A90A /* Array+Extension.swift */,
+				E825993F1E8D5A650073A90A /* RBTree.swift */,
 			);
 			name = "Data Structure";
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 				E82599231E8D3BFF0073A90A /* ViewController.swift in Sources */,
 				E825993A1E8D3C9C0073A90A /* QuickSort.swift in Sources */,
 				E82599211E8D3BFF0073A90A /* AppDelegate.swift in Sources */,
+				E82599401E8D5A650073A90A /* RBTree.swift in Sources */,
 				E825993C1E8D3C9C0073A90A /* Tool.swift in Sources */,
 				E825993E1E8D48240073A90A /* Array+Extension.swift in Sources */,
 				E82599391E8D3C9C0073A90A /* MyHeap.swift in Sources */,

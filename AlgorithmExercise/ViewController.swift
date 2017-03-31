@@ -17,7 +17,8 @@ class ViewController: UIViewController {
         
         //testSort()
         
-        testHeap()
+//        testHeap()
+        
     }
 
     override func didReceiveMemoryWarning() {

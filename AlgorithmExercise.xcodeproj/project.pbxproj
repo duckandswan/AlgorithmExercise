@@ -18,6 +18,8 @@
 		E825993C1E8D3C9C0073A90A /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82599371E8D3C9C0073A90A /* Tool.swift */; };
 		E825993E1E8D48240073A90A /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825993D1E8D48240073A90A /* Array+Extension.swift */; };
 		E82599401E8D5A650073A90A /* RBTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825993F1E8D5A650073A90A /* RBTree.swift */; };
+		E8E20D371E8DD49500C50230 /* RBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E20D361E8DD49500C50230 /* RBViewController.swift */; };
+		E8E20D391E8DDD3C00C50230 /* FIFOQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E20D381E8DDD3C00C50230 /* FIFOQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		E82599371E8D3C9C0073A90A /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		E825993D1E8D48240073A90A /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		E825993F1E8D5A650073A90A /* RBTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBTree.swift; sourceTree = "<group>"; };
+		E8E20D361E8DD49500C50230 /* RBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBViewController.swift; sourceTree = "<group>"; };
+		E8E20D381E8DDD3C00C50230 /* FIFOQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIFOQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 		E825991F1E8D3BFF0073A90A /* AlgorithmExercise */ = {
 			isa = PBXGroup;
 			children = (
+				E8E20D351E8DD46300C50230 /* Controller */,
 				E82599321E8D3C3E0073A90A /* Data Structure */,
 				E82599201E8D3BFF0073A90A /* AppDelegate.swift */,
 				E82599221E8D3BFF0073A90A /* ViewController.swift */,
@@ -86,8 +91,17 @@
 				E82599371E8D3C9C0073A90A /* Tool.swift */,
 				E825993D1E8D48240073A90A /* Array+Extension.swift */,
 				E825993F1E8D5A650073A90A /* RBTree.swift */,
+				E8E20D381E8DDD3C00C50230 /* FIFOQueue.swift */,
 			);
 			name = "Data Structure";
+			sourceTree = "<group>";
+		};
+		E8E20D351E8DD46300C50230 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E8E20D361E8DD49500C50230 /* RBViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,9 +182,11 @@
 				E82599211E8D3BFF0073A90A /* AppDelegate.swift in Sources */,
 				E82599401E8D5A650073A90A /* RBTree.swift in Sources */,
 				E825993C1E8D3C9C0073A90A /* Tool.swift in Sources */,
+				E8E20D391E8DDD3C00C50230 /* FIFOQueue.swift in Sources */,
 				E825993E1E8D48240073A90A /* Array+Extension.swift in Sources */,
 				E82599391E8D3C9C0073A90A /* MyHeap.swift in Sources */,
 				E825993B1E8D3C9C0073A90A /* Test.swift in Sources */,
+				E8E20D371E8DD49500C50230 /* RBViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +350,7 @@
 				E82599311E8D3BFF0073A90A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

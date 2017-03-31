@@ -9,7 +9,7 @@
 import Foundation
 
 class RBNode<T:Comparable>{
-    fileprivate let element:T
+    let element:T
     init(element e:T,isBlack b:Bool = true) {
         element = e
         isBlack = b
@@ -22,42 +22,8 @@ class RBNode<T:Comparable>{
     
 }
 
-protocol Queue {
-    /// The type of elements held in `self`.
-    associatedtype Element
-    /// Enqueue `element` to `self`.
-    mutating func enqueue(_ newElement: Element)
-    /// Dequeue an element from `self`.
-    mutating func dequeue() -> Element?
-}
-//#-end-hidden-code
-
-//#-editable-code
-/// An efficient variable-size FIFO queue of elements of type `Element`
-struct FIFOQueue<Element>: Queue {
-    fileprivate var left: [Element] = []
-    fileprivate var right: [Element] = []
-    
-    /// Add an element to the back of the queue.
-    /// - Complexity: O(1).
-    mutating func enqueue(_ newElement: Element) {
-        right.append(newElement)
-    }
-    
-    /// Removes front of the queue.
-    /// Returns `nil` in case of an empty queue.
-    /// - Complexity: Amortized O(1).
-    mutating func dequeue() -> Element? {
-        if left.isEmpty {
-            left = right.reversed()
-            right.removeAll()
-        }
-        return left.popLast()
-    }
-}
-
 class RBTree<T:Comparable>{
-    private var root:RBNode<T>?
+    var root:RBNode<T>?
     
     func insert(e:T){
         if root == nil {

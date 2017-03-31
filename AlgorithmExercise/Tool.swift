@@ -6,7 +6,11 @@
 //  Copyright © 2016年 finding. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+let SCREEN_H = UIScreen.main.bounds.size.height
+let SCREEN_W  = UIScreen.main.bounds.size.width
+
 class ALGUtils{
     static func swap<T:Comparable>(_ arr: inout [T],_ i:Int,_ j:Int){
         let x = arr[i]
@@ -30,3 +34,9 @@ class ALGUtils{
     }
 }
 
+extension Sequence {
+    public func all(matching predicate: (Iterator.Element) -> Bool) -> Bool {
+        // Every element matches a predicate if no element doesn't match it:
+        return !contains { !predicate($0) }
+    }
+}

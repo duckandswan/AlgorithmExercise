@@ -17,9 +17,12 @@ class RBViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.white
         navigationController?.navigationBar.isTranslucent = false
         
-        t.insert(e: 105)
+//        t.insert(e: 105)
 //        t.insert(e: 100)
 //        t.insert(e: 99)
+        stride(from: 105, through: 50, by: -5).forEach { (i) in
+            t.insert(e: i)
+        }
         drawRBTree(t: t)
     }
     @IBAction func add(_ sender: UIBarButtonItem) {
@@ -40,7 +43,7 @@ class RBViewController: UIViewController {
             v.removeFromSuperview()
         }
         
-        let nodeW:CGFloat = 35
+        let nodeW:CGFloat = 25
         let rowH = nodeW
         
         func addLine(p1:CGPoint,p2:CGPoint){
@@ -64,7 +67,7 @@ class RBViewController: UIViewController {
             button.isEnabled = false
             button.backgroundColor = n.isBlack ? UIColor.black : UIColor.red
             button.setTitleColor(UIColor.white, for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
             button.setTitle(String(describing: n.element), for: .normal)
             button.layer.cornerRadius = nodeW / 2
             button.center = center
@@ -102,17 +105,20 @@ class RBViewController: UIViewController {
         }
         
         let rowNumber = rowArr.count
-        var curX:CGFloat = 0
-        var curY:CGFloat = rowH * CGFloat(rowNumber) + nodeW * 1 / 2
+        var curX:CGFloat
+        var curY:CGFloat = rowH * CGFloat(rowNumber) - nodeW * 1 / 2
         for (i,row) in rowArr.reversed().enumerated(){
-            curY -= rowH
-            curX =  -nodeW / 2 + CGFloat(i) * nodeW / 2
+            curX = i == 0 ? (nodeW * 1 / 2) : (nodeW * pow(2, CGFloat(i - 1 )))
             for n in row{
-                curX += nodeW
                 if n != nil {
                     addRBNode(n: n!, center: CGPoint(x: curX, y: curY))
                 }
+                let spaceX = nodeW * pow(2, CGFloat(i))
+                print("spaceX: \(spaceX)")
+                curX += spaceX
+//                curX += nodeW
             }
+            curY -= rowH
         }
         
         

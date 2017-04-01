@@ -114,7 +114,7 @@ class RBViewController: UIViewController {
                     addRBNode(n: n!, center: CGPoint(x: curX, y: curY))
                 }
                 let spaceX = nodeW * pow(2, CGFloat(i))
-                print("spaceX: \(spaceX)")
+//                print("spaceX: \(spaceX)")
                 curX += spaceX
 //                curX += nodeW
             }

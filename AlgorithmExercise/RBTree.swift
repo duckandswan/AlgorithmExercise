@@ -68,6 +68,10 @@ class RBTree<T:Comparable>{
             while true {
                 if parent === grandparent.left{//1 parent is left child
                     if grandparent.right == nil || grandparent.right!.isBlack { //1.1 grandparent n's right is nil or black
+                        if n === parent.right{
+                            rotateToLeft(n: n)
+                            parent = n
+                        }
                         rotateToRight(n: parent)
                         parent.isBlack = true
                         parent.right!.isBlack = false
@@ -85,11 +89,30 @@ class RBTree<T:Comparable>{
                             break
                         }
                     }
-                }else{ // parent is right child
-                    break
-//                    if grandparent.left == nil{
-//                        rotateToLeft(n: n.parent!)
-//                    }
+                }else{ //2 parent is right child
+                    if grandparent.left == nil || grandparent.left!.isBlack { //1.1 grandparent n's left is nil or black
+                        if n === parent.left{
+                            rotateToRight(n: n)
+                            parent = n
+                        }
+                        rotateToLeft(n: parent)
+                        parent.isBlack = true
+                        parent.left!.isBlack = false
+                        break
+                        //
+                    }else { //1.2 grandparent's left is red
+                        reverseColor(n: grandparent) // 1.2.1reverse color
+                        if grandparent === root!{
+                            grandparent.isBlack = true
+                            break
+                        }else if !grandparent.parent!.isBlack{ //1.2.2 grandparent's parent is red after reverse
+                            parent = grandparent.parent!
+                            grandparent = parent.parent!
+                        }else{ //1.2.3 grandparent's parent is black after reverse
+                            break
+                        }
+                    }
+
                 }
             }
         }
@@ -123,6 +146,21 @@ class RBTree<T:Comparable>{
     }
     
     func rotateToLeft(n:RBNode<T>){
-
+        let parent = n.parent!
+        parent.right = n.left
+        n.left = parent
+        if parent === root!{
+            root = n
+            n.parent = nil
+        }else{
+            let grandparent = parent.parent! // grandparent is black
+            if n.parent! === grandparent.left{
+                grandparent.left = n
+            }else{
+                grandparent.right = n
+            }
+            n.parent = grandparent
+        }
+        parent.parent = n
     }
 }

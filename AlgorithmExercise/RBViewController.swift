@@ -10,14 +10,25 @@ import UIKit
 
 class RBViewController: UIViewController {
 
+    @IBOutlet weak var tf: UITextField!
+    let t = RBTree<Int>()
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.barTintColor = UIColor.white
         navigationController?.navigationBar.isTranslucent = false
-        let t = RBTree<Int>()
+        
         t.insert(e: 105)
-        t.insert(e: 100)
+//        t.insert(e: 100)
+//        t.insert(e: 99)
         drawRBTree(t: t)
+    }
+    @IBAction func add(_ sender: UIBarButtonItem) {
+        if let i = Int(tf.text!){
+            t.insert(e: i)
+            drawRBTree(t: t)
+
+        }
+        view.endEditing(false)
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,8 +36,12 @@ class RBViewController: UIViewController {
     }
     
     func drawRBTree<T:Comparable>(t:RBTree<T>){
-        let nodeW:CGFloat = 50
-        let rowH = nodeW * 3 / 2
+        for v in view.subviews{
+            v.removeFromSuperview()
+        }
+        
+        let nodeW:CGFloat = 35
+        let rowH = nodeW
         
         func addLine(p1:CGPoint,p2:CGPoint){
             let line = CAShapeLayer()
@@ -35,6 +50,9 @@ class RBViewController: UIViewController {
             linePath.addLine(to: p2)
             line.lineWidth = 1.0
             line.path = linePath.cgPath
+//            let d = p1.distanceTo(p2)
+//            line.lineDashPhase = nodeW / 2
+//            line.lineDashPattern = [NSNumber(value: Float(Float(nodeW / 2))),NSNumber(value: Float(Float(d - nodeW))),NSNumber(value: Float(Float(nodeW / 2)))]
 //            line.fillColor = UIColor.black.cgColor
             line.strokeColor = UIColor.blue.cgColor
             view.layer.addSublayer(line)
@@ -52,11 +70,11 @@ class RBViewController: UIViewController {
             button.center = center
             view.addSubview(button)
             
-            if n.left != nil {
-                let p1 = center
-                let p2 = CGPoint(x: p1.x - nodeW / 2, y: p1.y + rowH)
-                addLine(p1: p1, p2: p2)
-            }
+//            if n.left != nil {
+//                let p1 = center
+//                let p2 = CGPoint(x: p1.x - nodeW / 2, y: p1.y + rowH)
+//                addLine(p1: p1, p2: p2)
+//            }
         }
         
         guard let n = t.root else{
@@ -74,7 +92,6 @@ class RBViewController: UIViewController {
             for n in row1 {
                 row2.append(n?.left)
                 row2.append(n?.right)
-                
             }
             if row2.contains(where: { $0 != nil}){
                 rowArr.append(row2)

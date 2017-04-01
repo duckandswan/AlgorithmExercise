@@ -18,8 +18,10 @@
 		E825993C1E8D3C9C0073A90A /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82599371E8D3C9C0073A90A /* Tool.swift */; };
 		E825993E1E8D48240073A90A /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825993D1E8D48240073A90A /* Array+Extension.swift */; };
 		E82599401E8D5A650073A90A /* RBTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825993F1E8D5A650073A90A /* RBTree.swift */; };
+		E8490D2C1E8FADB0002A23D4 /* Algorithm.txt in Resources */ = {isa = PBXBuildFile; fileRef = E8490D2B1E8FADB0002A23D4 /* Algorithm.txt */; };
 		E8E20D371E8DD49500C50230 /* RBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E20D361E8DD49500C50230 /* RBViewController.swift */; };
 		E8E20D391E8DDD3C00C50230 /* FIFOQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E20D381E8DDD3C00C50230 /* FIFOQueue.swift */; };
+		E8E20D3B1E8EA53D00C50230 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E20D3A1E8EA53D00C50230 /* CGPoint+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,8 +38,10 @@
 		E82599371E8D3C9C0073A90A /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		E825993D1E8D48240073A90A /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		E825993F1E8D5A650073A90A /* RBTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBTree.swift; sourceTree = "<group>"; };
+		E8490D2B1E8FADB0002A23D4 /* Algorithm.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Algorithm.txt; sourceTree = "<group>"; };
 		E8E20D361E8DD49500C50230 /* RBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBViewController.swift; sourceTree = "<group>"; };
 		E8E20D381E8DDD3C00C50230 /* FIFOQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIFOQueue.swift; sourceTree = "<group>"; };
+		E8E20D3A1E8EA53D00C50230 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 		E82599321E8D3C3E0073A90A /* Data Structure */ = {
 			isa = PBXGroup;
 			children = (
+				E8E20D3A1E8EA53D00C50230 /* CGPoint+Extensions.swift */,
 				E82599341E8D3C9C0073A90A /* MyHeap.swift */,
 				E82599351E8D3C9C0073A90A /* QuickSort.swift */,
 				E82599361E8D3C9C0073A90A /* Test.swift */,
@@ -92,6 +97,7 @@
 				E825993D1E8D48240073A90A /* Array+Extension.swift */,
 				E825993F1E8D5A650073A90A /* RBTree.swift */,
 				E8E20D381E8DDD3C00C50230 /* FIFOQueue.swift */,
+				E8490D2B1E8FADB0002A23D4 /* Algorithm.txt */,
 			);
 			name = "Data Structure";
 			sourceTree = "<group>";
@@ -166,6 +172,7 @@
 			files = (
 				E825992B1E8D3BFF0073A90A /* LaunchScreen.storyboard in Resources */,
 				E82599281E8D3BFF0073A90A /* Assets.xcassets in Resources */,
+				E8490D2C1E8FADB0002A23D4 /* Algorithm.txt in Resources */,
 				E82599261E8D3BFF0073A90A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,6 +191,7 @@
 				E825993C1E8D3C9C0073A90A /* Tool.swift in Sources */,
 				E8E20D391E8DDD3C00C50230 /* FIFOQueue.swift in Sources */,
 				E825993E1E8D48240073A90A /* Array+Extension.swift in Sources */,
+				E8E20D3B1E8EA53D00C50230 /* CGPoint+Extensions.swift in Sources */,
 				E82599391E8D3C9C0073A90A /* MyHeap.swift in Sources */,
 				E825993B1E8D3C9C0073A90A /* Test.swift in Sources */,
 				E8E20D371E8DD49500C50230 /* RBViewController.swift in Sources */,

@@ -25,7 +25,16 @@ class RBNode<T:Comparable>{
 class RBTree<T:Comparable>{
     var root:RBNode<T>?
     
-    func insert(e:T){
+    var needToAdjustNode:RBNode<T>?
+    
+    func adjust(){
+        if let n = needToAdjustNode {
+            adjust(n: n)
+        }
+        needToAdjustNode = nil
+    }
+    
+    func insert(e:T,delayAdjust:Bool = false){
         if root == nil {
             let n = RBNode<T>(element: e)
             root = n
@@ -37,7 +46,12 @@ class RBTree<T:Comparable>{
                         let n = RBNode<T>(element: e,isBlack: false)
                         p.left = n
                         n.parent = p
-                        adjust(n: n)
+                        if !delayAdjust{
+                            adjust(n: n)
+                        }else{
+                            needToAdjustNode = n
+                        }
+                        
                         break
                     }else{
                         p = p.left!
@@ -47,7 +61,11 @@ class RBTree<T:Comparable>{
                         let n = RBNode<T>(element: e,isBlack: false)
                         p.right = n
                         n.parent = p
-                        adjust(n: n)
+                        if !delayAdjust{
+                            adjust(n: n)
+                        }else{
+                            needToAdjustNode = n
+                        }
                         break
                     }else{
                         p = p.right!

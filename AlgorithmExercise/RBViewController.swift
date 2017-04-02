@@ -30,15 +30,14 @@ class RBViewController: UIViewController {
 //        [445,435,437,433].forEach { (i) in
 //            t.insert(e: i)
 //        }
-        (1...100).forEach{_ in
+        (1...50).forEach{_ in
             t.insert(e: Int(arc4random_uniform(500)))}
         drawRBTree(t: t)
     }
     @IBAction func add(_ sender: UIBarButtonItem) {
         if let i = Int(tf.text!){
-            t.insert(e: i)
+            t.insert(e: i,delayAdjust: true)
             drawRBTree(t: t)
-
         }
         view.endEditing(false)
     }
@@ -76,10 +75,6 @@ class RBViewController: UIViewController {
             linePath.addLine(to: a2)
             line.lineWidth = 1.0
             line.path = linePath.cgPath
-//            let d = p1.distanceTo(p2)
-//            line.lineDashPhase = nodeW / 2
-//            line.lineDashPattern = [NSNumber(value: Float(Float(nodeW / 2))),NSNumber(value: Float(Float(d - nodeW))),NSNumber(value: Float(Float(nodeW / 2)))]
-//            line.fillColor = UIColor.black.cgColor
             line.strokeColor = UIColor.blue.cgColor
             scrollView.layer.addSublayer(line)
         }
@@ -163,10 +158,6 @@ class RBViewController: UIViewController {
 //        }
         
     }
-    
-    
-    
-
 }
 
 class RBButton: UIButton {

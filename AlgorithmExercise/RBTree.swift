@@ -69,11 +69,11 @@ class RBTree<T:Comparable>{
             while true {
                 if parent === grandparent.left{//1 parent is left child
                     if grandparent.right == nil || grandparent.right!.isBlack { //1.1 grandparent n's right is nil or black
-                        if current === parent.right{
+                        if current === parent.right{ // 1.1.1 current is parent's right child
                             rotateToLeft(n: current)
                             parent = current
                         }
-                        rotateToRight(n: parent)
+                        rotateToRight(n: parent) // 1.1.2 current is parent's left child
                         parent.isBlack = true
                         parent.right!.isBlack = false
                         break

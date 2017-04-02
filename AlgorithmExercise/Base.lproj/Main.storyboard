@@ -57,7 +57,7 @@
         <!--View Controller-->
         <scene sceneID="5PO-Gd-Q6N">
             <objects>
-                <viewController id="X6o-Os-6oH" customClass="RBViewController" customModule="AlgorithmExercise" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="X6o-Os-6oH" customClass="RBViewController" customModule="AlgorithmExercise" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MM5-JW-16C"/>
                         <viewControllerLayoutGuide type="bottom" id="VvG-40-1zS"/>
@@ -71,7 +71,7 @@
                     <navigationItem key="navigationItem" id="Fbf-H8-wgk">
                         <nil key="title"/>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="Ve1-LY-i4P">
-                            <rect key="frame" x="148" y="7" width="80" height="30"/>
+                            <rect key="frame" x="147.5" y="7" width="80" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>

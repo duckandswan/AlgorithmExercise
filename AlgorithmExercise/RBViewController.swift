@@ -20,7 +20,10 @@ class RBViewController: UIViewController {
 //        t.insert(e: 105)
 //        t.insert(e: 100)
 //        t.insert(e: 99)
-        stride(from: 105, through: 50, by: -5).forEach { (i) in
+        stride(from: 500, through: 300, by: -10).forEach { (i) in
+            t.insert(e: i)
+        }
+        [445,435,437,433].forEach { (i) in
             t.insert(e: i)
         }
         drawRBTree(t: t)

@@ -30,7 +30,7 @@ class RBViewController: UIViewController {
 //        [445,435,437,433].forEach { (i) in
 //            t.insert(e: i)
 //        }
-        (1...100).forEach{_ in
+        (1...30).forEach{_ in
             t.insert(e: Int(arc4random_uniform(500)))}
         drawRBTree(t: t)
     }
@@ -167,12 +167,5 @@ class RBViewController: UIViewController {
     
     
 
-}
-
-class RBButton: UIButton {
-    var leftButton:RBButton?
-    var rightButton:RBButton?
-    var leftLine:CAShapeLayer?
-    var rightLine:CAShapeLayer?
 }
 

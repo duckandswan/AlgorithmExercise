@@ -59,6 +59,33 @@ class RBTree<T:Comparable>{
         }
     }
     
+    func delete(e:T){
+        if root == nil {
+            let n = RBNode<T>(element: e)
+            root = n
+        }else{
+            var p = root!
+            while true {
+                if e < p.element {
+                    if p.left == nil{
+                        break
+                    }else{
+                        p = p.left!
+                    }
+                }else if e > p.element {
+                    if p.right == nil {
+                        break
+                    }else{
+                        p = p.right!
+                    }
+                }else {
+                    break
+                }
+            }
+        }
+    }
+
+    
     //assume n is red
     func adjust(n:RBNode<T>){
         //it's parent are red

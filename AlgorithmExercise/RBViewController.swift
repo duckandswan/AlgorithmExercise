@@ -36,14 +36,14 @@ class RBViewController: UIViewController {
     }
     @IBAction func add(_ sender: UIBarButtonItem) {
         if let i = Int(tf.text!){
-            t.insert(e: i,delayAdjust: true)
+            t.insert(e: i)
             drawRBTree(t: t)
         }
         view.endEditing(false)
     }
     @IBAction func rotate(_ sender: UIBarButtonItem) {
-        t.adjust()
-        drawRBTree(t: t)
+//        t.adjust()
+//        drawRBTree(t: t)
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,8 +68,8 @@ class RBViewController: UIViewController {
         
         let timeInterval:TimeInterval = 2.5
         
-        func addLine(p1:CGPoint,p2:CGPoint){
-            let line = CAShapeLayer()
+        func addLine(p1:CGPoint,p2:CGPoint,line:CAShapeLayer){
+//            let line = CAShapeLayer()
             let linePath = UIBezierPath()
             let r = nodeW / 2
             let sin = (p2.y - p1.y) / (p2.distanceTo(p1))
@@ -80,13 +80,14 @@ class RBViewController: UIViewController {
             linePath.move(to: a1)
             linePath.addLine(to: a2)
             line.lineWidth = 1.0
+            let originalPath = line.path
             line.path = linePath.cgPath
             line.strokeColor = UIColor.blue.cgColor
             scrollView.layer.addSublayer(line)
 
             let pathAppear = CABasicAnimation(keyPath: "path")
             pathAppear.duration = timeInterval
-            pathAppear.fromValue = UIBezierPath().cgPath
+            pathAppear.fromValue = originalPath
             pathAppear.toValue = linePath.cgPath
             line.add(pathAppear, forKey: "make the path appear")
         }
@@ -109,13 +110,13 @@ class RBViewController: UIViewController {
             if n.left != nil {
                 let p1 = center
                 let p2 = CGPoint(x: p1.x - pow(2, CGFloat(i - 1)) * (nodeW / 2), y: p1.y + rowH)
-                addLine(p1: p1, p2: p2)
+                addLine(p1: p1, p2: p2, line: n.leftLine)
             }
             
             if n.right != nil {
                 let p1 = center
                 let p2 = CGPoint(x: p1.x + pow(2, CGFloat(i - 1)) * (nodeW / 2), y: p1.y + rowH)
-                addLine(p1: p1, p2: p2)
+                addLine(p1: p1, p2: p2,line: n.rightLine)
             }
         }
         

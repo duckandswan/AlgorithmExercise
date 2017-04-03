@@ -20,19 +20,21 @@ class RBNode<T:Comparable>{
     var right:RBNode<T>?
     weak var parent:RBNode<T>?
     var b = UIButton()
+    var leftLine = CAShapeLayer()
+    var rightLine = CAShapeLayer()
 }
 
 class RBTree<T:Comparable>{
     var root:RBNode<T>?
     
-    var needToAdjustNode:RBNode<T>?
-    
-    func adjust(){
-        if let n = needToAdjustNode {
-            adjust(n: n)
-        }
-        needToAdjustNode = nil
-    }
+//    var needToAdjustNode:RBNode<T>?
+//    
+//    func adjust(){
+//        if let n = needToAdjustNode {
+//            adjust(n: n)
+//        }
+//        needToAdjustNode = nil
+//    }
     
     func insert(e:T,delayAdjust:Bool = false){
         if root == nil {
@@ -46,11 +48,12 @@ class RBTree<T:Comparable>{
                         let n = RBNode<T>(element: e,isBlack: false)
                         p.left = n
                         n.parent = p
-                        if !delayAdjust{
-                            adjust(n: n)
-                        }else{
-                            needToAdjustNode = n
-                        }
+                        adjust(n: n)
+//                        if !delayAdjust{
+//                            adjust(n: n)
+//                        }else{
+//                            needToAdjustNode = n
+//                        }
                         
                         break
                     }else{
@@ -61,11 +64,12 @@ class RBTree<T:Comparable>{
                         let n = RBNode<T>(element: e,isBlack: false)
                         p.right = n
                         n.parent = p
-                        if !delayAdjust{
-                            adjust(n: n)
-                        }else{
-                            needToAdjustNode = n
-                        }
+                        adjust(n: n)
+//                        if !delayAdjust{
+//                            adjust(n: n)
+//                        }else{
+//                            needToAdjustNode = n
+//                        }
                         break
                     }else{
                         p = p.right!

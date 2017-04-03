@@ -27,14 +27,74 @@ class RBNode<T:Comparable>{
 class RBTree<T:Comparable>{
     var root:RBNode<T>?
     
-//    var needToAdjustNode:RBNode<T>?
-//    
-//    func adjust(){
+    var needToAdjustNode:RBNode<T>?
+    
+    func adjust(){
 //        if let n = needToAdjustNode {
 //            adjust(n: n)
 //        }
 //        needToAdjustNode = nil
-//    }
+        //it's parent are red
+        if needToAdjustNode == nil {
+            return
+        }
+        let current = needToAdjustNode!
+        var parent = needToAdjustNode!.parent!
+        if !parent.isBlack {
+            let grandparent = parent.parent!
+            if parent === grandparent.left{//1 parent is left child
+                if grandparent.right == nil || grandparent.right!.isBlack { //1.1 grandparent n's right is nil or black
+                    if current === parent.right{ // 1.1.1 current is parent's right child
+                        rotateToLeft(n: current)
+                        parent = current
+                    }
+                    rotateToRight(n: parent) // 1.1.2 current is parent's left child
+                    parent.isBlack = true
+                    parent.right!.isBlack = false
+                    needToAdjustNode = nil
+                    //
+                }else { //1.2 grandparent's right is red
+                    reverseColor(n: grandparent) // 1.2.1reverse color
+                    if grandparent === root!{
+                        grandparent.isBlack = true
+                        needToAdjustNode = nil
+                    }else if !grandparent.parent!.isBlack{ //1.2.2 grandparent's parent is red after reverse
+                        needToAdjustNode = grandparent
+                    }else{ //1.2.3 grandparent's parent is black after reverse
+                        needToAdjustNode = nil
+                    }
+                }
+            }else{ //2 parent is right child
+                if grandparent.left == nil || grandparent.left!.isBlack { //1.1 grandparent n's left is nil or black
+                    if current === parent.left{
+                        rotateToRight(n: current)
+                        parent = current
+                    }
+                    rotateToLeft(n: parent)
+                    parent.isBlack = true
+                    parent.left!.isBlack = false
+                    needToAdjustNode = nil
+                    //
+                }else { //1.2 grandparent's left is red
+                    reverseColor(n: grandparent) // 1.2.1reverse color
+                    if grandparent === root!{
+                        grandparent.isBlack = true
+                        needToAdjustNode = nil
+                    }else if !grandparent.parent!.isBlack{ //1.2.2 grandparent's parent is red after reverse
+                        needToAdjustNode = grandparent
+                    }else{ //1.2.3 grandparent's parent is black after reverse
+                        needToAdjustNode = nil
+                    }
+                }
+                
+            }
+        }else{
+            needToAdjustNode = nil
+        }
+        
+        
+
+    }
     
     func insert(e:T,delayAdjust:Bool = false){
         if root == nil {
@@ -48,13 +108,13 @@ class RBTree<T:Comparable>{
                         let n = RBNode<T>(element: e,isBlack: false)
                         p.left = n
                         n.parent = p
-                        adjust(n: n)
-//                        if !delayAdjust{
-//                            adjust(n: n)
-//                        }else{
-//                            needToAdjustNode = n
-//                        }
-                        
+                        if !delayAdjust{
+                            adjust(n: n)
+                        }else{
+                            if !n.parent!.isBlack {
+                                needToAdjustNode = n
+                            }
+                        }
                         break
                     }else{
                         p = p.left!
@@ -64,12 +124,13 @@ class RBTree<T:Comparable>{
                         let n = RBNode<T>(element: e,isBlack: false)
                         p.right = n
                         n.parent = p
-                        adjust(n: n)
-//                        if !delayAdjust{
-//                            adjust(n: n)
-//                        }else{
-//                            needToAdjustNode = n
-//                        }
+                        if !delayAdjust{
+                            adjust(n: n)
+                        }else{
+                            if !n.parent!.isBlack {
+                                needToAdjustNode = n
+                            }
+                        }
                         break
                     }else{
                         p = p.right!

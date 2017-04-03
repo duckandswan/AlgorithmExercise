@@ -10,6 +10,10 @@ import UIKit
 
 class RBViewController: UIViewController {
 
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    
+    @IBOutlet weak var adjustButton: UIBarButtonItem!
+    
     @IBOutlet weak var tf: UITextField!
     let t = RBTree<Int>()
     let scrollView = UIScrollView()
@@ -35,15 +39,30 @@ class RBViewController: UIViewController {
         drawRBTree(t: t)
     }
     @IBAction func add(_ sender: UIBarButtonItem) {
+        if t.needToAdjustNode != nil {
+            return
+        }
         if let i = Int(tf.text!){
-            t.insert(e: i)
+            t.insert(e: i,delayAdjust: true)
             drawRBTree(t: t)
         }
         view.endEditing(false)
+        enableOrDisableButtons()
     }
     @IBAction func rotate(_ sender: UIBarButtonItem) {
-//        t.adjust()
-//        drawRBTree(t: t)
+        t.adjust()
+        drawRBTree(t: t)
+        enableOrDisableButtons()
+    }
+    
+    func enableOrDisableButtons(){
+        if t.needToAdjustNode == nil{
+            addButton.isEnabled = true
+            adjustButton.isEnabled = false
+        }else{
+            addButton.isEnabled = false
+            adjustButton.isEnabled = true
+        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -84,7 +84,11 @@
                                     <action selector="add:" destination="X6o-Os-6oH" id="iBf-uL-AXD"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="转" id="lkf-qU-Rvc"/>
+                            <barButtonItem title="转" id="lkf-qU-Rvc">
+                                <connections>
+                                    <action selector="rotate:" destination="X6o-Os-6oH" id="Xw1-vw-d1A"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>

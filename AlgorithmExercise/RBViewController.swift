@@ -41,6 +41,10 @@ class RBViewController: UIViewController {
         }
         view.endEditing(false)
     }
+    @IBAction func rotate(_ sender: UIBarButtonItem) {
+        t.adjust()
+        drawRBTree(t: t)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -62,6 +66,8 @@ class RBViewController: UIViewController {
         let nodeW:CGFloat = 25
         let rowH = nodeW
         
+        let timeInterval:TimeInterval = 2.5
+        
         func addLine(p1:CGPoint,p2:CGPoint){
             let line = CAShapeLayer()
             let linePath = UIBezierPath()
@@ -77,18 +83,27 @@ class RBViewController: UIViewController {
             line.path = linePath.cgPath
             line.strokeColor = UIColor.blue.cgColor
             scrollView.layer.addSublayer(line)
+
+            let pathAppear = CABasicAnimation(keyPath: "path")
+            pathAppear.duration = timeInterval
+            pathAppear.fromValue = UIBezierPath().cgPath
+            pathAppear.toValue = linePath.cgPath
+            line.add(pathAppear, forKey: "make the path appear")
         }
 
         func addRBNode(n:RBNode<T>,center:CGPoint,i:Int){
-            let button = UIButton()
+//            let button = UIButton()
+            let button = n.b
             button.frame.size = CGSize(width: nodeW, height: nodeW)
             button.isEnabled = false
-            button.backgroundColor = n.isBlack ? UIColor.black : UIColor.red
             button.setTitleColor(UIColor.white, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
             button.setTitle(String(describing: n.element), for: .normal)
             button.layer.cornerRadius = nodeW / 2
-            button.center = center
+            UIView.animate(withDuration: timeInterval) {
+                button.center = center
+                button.backgroundColor = n.isBlack ? UIColor.black : UIColor.red
+            }
             scrollView.addSubview(button)
             
             if n.left != nil {
@@ -161,9 +176,6 @@ class RBViewController: UIViewController {
 }
 
 class RBButton: UIButton {
-    var leftButton:RBButton?
-    var rightButton:RBButton?
-    var leftLine:CAShapeLayer?
-    var rightLine:CAShapeLayer?
+
 }
 

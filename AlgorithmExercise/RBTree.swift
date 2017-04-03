@@ -6,7 +6,7 @@
 //  Copyright © 2017 Song Bo. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class RBNode<T:Comparable>{
     let element:T
@@ -19,7 +19,7 @@ class RBNode<T:Comparable>{
     var left:RBNode<T>?
     var right:RBNode<T>?
     weak var parent:RBNode<T>?
-    
+    var b = UIButton()
 }
 
 class RBTree<T:Comparable>{

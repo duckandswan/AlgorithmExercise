@@ -34,8 +34,8 @@ class RBViewController: UIViewController {
 //        [445,435,437,433].forEach { (i) in
 //            t.insert(e: i)
 //        }
-        (1...50).forEach{_ in
-            t.insert(e: Int(arc4random_uniform(500)))}
+        (1...5).forEach{_ in
+            t.insert(e: Int(arc4random_uniform(1000)))}
         drawRBTree(t: t)
     }
     @IBAction func add(_ sender: UIBarButtonItem) {

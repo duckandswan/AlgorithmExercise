@@ -93,7 +93,7 @@ class RBViewController: UIViewController {
         func addRBNode(n:RBNode<T>,center:CGPoint,i:Int){
             let button = UIButton()
             button.frame.size = CGSize(width: nodeW, height: nodeW)
-            button.isEnabled = false
+            button.isEnabled = true
             button.backgroundColor = n.isBlack ? UIColor.black : UIColor.red
             button.setTitleColor(UIColor.white, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
@@ -101,6 +101,8 @@ class RBViewController: UIViewController {
             button.layer.cornerRadius = nodeW / 2
             button.center = center
             scrollView.addSubview(button)
+            
+            button.addTarget(self, action: #selector(RBViewController.clickToDelete(b:)), for: .touchUpInside)
             
             if n.left != nil {
                 let p1 = center
@@ -168,6 +170,13 @@ class RBViewController: UIViewController {
 //            button.center = CGPoint(x: SCREEN_W / 2, y: button.frame.width / 2)
 //        }
         
+    }
+    
+    func clickToDelete(b:UIButton){
+        if let i = Int(b.titleLabel!.text!){
+            t.delete(e: i)
+            drawRBTree(t: t)
+        }
     }
     
     

@@ -77,14 +77,38 @@ class RBTree<T:Comparable>{
                     }else{
                         n = n.right!
                     }
-                }else {
+                }else { // e == n.element
+                    if n === root!{
+                        root = nil
+                        return
+                    }
                     if n.left == nil {
-                        trans(for: n, substitute: n.right)
-                        n.right?.isBlack = true
+                        if n.right != nil {// n is black,n's left is nil, n's right is red
+                            n.right!.isBlack = true
+                            trans(for: n, substitute: n.right)
+                        }else{
+                            if !n.isBlack{// n is red leaf
+                                trans(for: n, substitute: nil)
+                            }else{// n is black leaf, brother is black
+                                let parent = n.parent!
+                                trans(for: n, substitute: nil)
+                                deleteFix(n: parent)
+                                
+//                                if !parent.isBlack{
+//                                    if parent.left != nil {
+//                                        rotateToRight(n: parent.left!)
+//                                    }else{
+//                                        rotateToLeft(n: parent.right!)
+//                                    }
+//                                }else{
+//                                    
+//                                }
+                            }
+                        }
                         break
                     }else if n.right == nil {
+                        n.left!.isBlack = true
                         trans(for: n, substitute: n.left)
-                        n.left?.isBlack = true
                         break
                     }else{
                         break
@@ -94,17 +118,47 @@ class RBTree<T:Comparable>{
         }
     }
     
+    func deleteFix(n:RBNode<T>){
+        if !n.isBlack { // n is red, n has a black child, a nil child
+            if n.left != nil {
+                let leftChild = n.left!
+                if leftChild.right != nil {
+                    let rightGrandChild = leftChild.right!
+                    rotateToLeft(n: rightGrandChild)
+                    rotateToRight(n: rightGrandChild)
+                    rightGrandChild.right!.isBlack = true
+                }else {
+                    rotateToRight(n: leftChild)
+                }
+            }else{
+                rotateToLeft(n: n.right!)
+            }
+        }
+//        var x = n
+//        if !x.isBlack {
+//            
+//        }
+//        while x !== root && x.isBlack {
+//            let parent = x.parent!
+//            
+//            if x === parent.left{
+//                let rightBrother = parent.right!
+//                if rightBrother.isBlack && rightBrother.isBlack{
+//                    
+//                }
+//            }
+//            
+//        }
+//        x.isBlack = true
+    }
+    
     func trans(for n1:RBNode<T> ,substitute n2:RBNode<T>?){
         n2?.parent = n1.parent
-        if n1.parent != nil {
-            let parent = n1.parent!
-            if n1 === parent.left{
-                parent.left = n2
-            }else{
-                parent.right = n2
-            }
+        let parent = n1.parent!
+        if n1 === parent.left{
+            parent.left = n2
         }else{
-            root = n2
+            parent.right = n2
         }
     }
 
@@ -182,7 +236,7 @@ class RBTree<T:Comparable>{
     func rotateToRight(n:RBNode<T>){
         let parent = n.parent!
         parent.left = n.right
-        n.right?.parent = parent
+        n.right?.parent = parent //n.roght may be nil
         n.right = parent
         if parent === root!{
             root = n

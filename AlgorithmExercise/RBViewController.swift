@@ -30,8 +30,8 @@ class RBViewController: UIViewController {
 //        [445,435,437,433].forEach { (i) in
 //            t.insert(e: i)
 //        }
-        (1...30).forEach{_ in
-            t.insert(e: Int(arc4random_uniform(500)))}
+        (1...50).forEach{_ in
+            t.insert(e: Int(arc4random_uniform(999)))}
         drawRBTree(t: t)
     }
     @IBAction func add(_ sender: UIBarButtonItem) {
@@ -41,6 +41,14 @@ class RBViewController: UIViewController {
 
         }
         view.endEditing(false)
+    }
+    @IBAction func subtract(_ sender: UIBarButtonItem) {
+        if let i = Int(tf.text!){
+            t.delete(e: i)
+            drawRBTree(t: t)
+        }
+        view.endEditing(false)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,8 +65,6 @@ class RBViewController: UIViewController {
                 l.removeFromSuperlayer()
             }
         }
-        
-
         
         let nodeW:CGFloat = 25
         let rowH = nodeW

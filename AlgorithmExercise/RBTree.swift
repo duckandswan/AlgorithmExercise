@@ -61,27 +61,50 @@ class RBTree<T:Comparable>{
     
     func delete(e:T){
         if root == nil {
-            let n = RBNode<T>(element: e)
-            root = n
+            return
         }else{
-            var p = root!
+            var n = root!
             while true {
-                if e < p.element {
-                    if p.left == nil{
+                if e < n.element {
+                    if n.left == nil{
                         break
                     }else{
-                        p = p.left!
+                        n = n.left!
                     }
-                }else if e > p.element {
-                    if p.right == nil {
+                }else if e > n.element {
+                    if n.right == nil {
                         break
                     }else{
-                        p = p.right!
+                        n = n.right!
                     }
                 }else {
-                    break
+                    if n.left == nil {
+                        trans(for: n, substitute: n.right)
+                        n.right?.isBlack = true
+                        break
+                    }else if n.right == nil {
+                        trans(for: n, substitute: n.left)
+                        n.left?.isBlack = true
+                        break
+                    }else{
+                        break
+                    }
                 }
             }
+        }
+    }
+    
+    func trans(for n1:RBNode<T> ,substitute n2:RBNode<T>?){
+        n2?.parent = n1.parent
+        if n1.parent != nil {
+            let parent = n1.parent!
+            if n1 === parent.left{
+                parent.left = n2
+            }else{
+                parent.right = n2
+            }
+        }else{
+            root = n2
         }
     }
 

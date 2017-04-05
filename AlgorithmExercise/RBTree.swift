@@ -9,21 +9,32 @@
 import Foundation
 
 class RBNode<T:Comparable>{
-    let element:T
-    init(element e:T,isBlack b:Bool = true) {
-        element = e
-        isBlack = b
-    }
+    let element:T!
     var isBlack = true
     
     var left:RBNode<T>?
     var right:RBNode<T>?
     weak var parent:RBNode<T>?
     
+    init(element e:T,isBlack b:Bool = true) {
+        element = e
+        isBlack = b
+    }
+    
+    fileprivate init() {
+        element = nil
+    }
+    
 }
 
 class RBTree<T:Comparable>{
     var root:RBNode<T>?
+    
+    private var RBNodeNil:RBNode<T>
+    
+    init() {
+        RBNodeNil = RBNode<T>()
+    }
     
     func insert(e:T){
         if root == nil {
@@ -59,6 +70,15 @@ class RBTree<T:Comparable>{
         }
     }
     
+    func minChild(n:RBNode<T>) -> RBNode<T>{
+        var x = n
+        while x.left != nil {
+            x = x.left!
+        }
+        return x
+    }
+    
+    private var sentinel:RBNode<T>?
     func delete(e:T){
         if root == nil {
             return
@@ -82,57 +102,165 @@ class RBTree<T:Comparable>{
                         root = nil
                         return
                     }
+                    var originalColor = n.isBlack
+                    var needToFixNode:RBNode<T>
+                    sentinel = RBNode<T>(element: e,isBlack: true)
+
                     if n.left == nil {
-                        if n.right != nil {// n is black,n's left is nil, n's right is red
-                            n.right!.isBlack = true
-                            trans(for: n, substitute: n.right)
-                        }else{
-                            if !n.isBlack{// n is red leaf
-                                trans(for: n, substitute: nil)
-                            }else{// n is black leaf, brother is black
-                                let parent = n.parent!
-                                trans(for: n, substitute: nil)
-                                deleteFix(n: parent)
-                                
-//                                if !parent.isBlack{
-//                                    if parent.left != nil {
-//                                        rotateToRight(n: parent.left!)
-//                                    }else{
-//                                        rotateToLeft(n: parent.right!)
-//                                    }
-//                                }else{
-//                                    
-//                                }
-                            }
+                        if n.right == nil{
+                            n.right = sentinel
                         }
-                        break
+                        needToFixNode = n.right!
+                        trans(for: n, substitute: n.right)
                     }else if n.right == nil {
-                        n.left!.isBlack = true
+                        needToFixNode = n.left!
                         trans(for: n, substitute: n.left)
-                        break
                     }else{
-                        break
+                        let y = minChild(n: n.right!)
+                        originalColor = y.isBlack
+                        if y.right == nil{
+                            y.right = sentinel
+                        }
+                        needToFixNode = y.right!
+                        if y.parent === n{
+                            needToFixNode.parent = y // may be sentinel
+                        }else{
+                            trans(for: y, substitute: y.right)
+                            y.right = n.right
+                            y.right!.parent = y
+                        }
+                        trans(for: n, substitute: y)
+                        y.left = n.left
+                        y.isBlack = n.isBlack
                     }
+                    if originalColor{
+//                        sentinel = needToFixNode ?? RBNode<T>(element: e,isBlack: true)
+//                        if n.left == nil {
+//                            n.left = sentinel
+//                        }else{
+//                            n.right = sentinel
+//                        }
+//                        sentinel!.parent = n
+//                        if delayToDeleteNode != nil {
+//                            trans(for: delayToDeleteNode!, substitute: nil)
+//                        }
+//                        deleteFix(n: needToFixNode)
+                    }else{
+//                        if delayToDeleteNode != nil {
+//                            trans(for: delayToDeleteNode!, substitute: nil)
+//                        }
+                    }
+                    if sentinel != nil {
+                        trans(for: sentinel!, substitute: nil)
+                        sentinel = nil
+                    }
+                    break
+
+                    
+
+//                    if n.left == nil{
+//                        if n.right != nil {// n is black,n's left is nil, n's right is red
+//                            n.right!.isBlack = true
+//                            trans(for: n, substitute: n.right)
+//                        }else{// n is a leaf
+//                            if !n.isBlack{// n is red leaf
+//                                trans(for: n, substitute: nil)
+//                            }else{// n is black leaf, brother is black
+//                                let parent = n.parent!
+//                                trans(for: n, substitute: nil)
+//                                deleteLeafFix(n: parent)
+//                            }
+//                        }
+//                    }else if n.right == nil { // red left child，right is nil
+//                        n.left!.isBlack = true
+//                        trans(for: n, substitute: n.left)
+//                    }else{ // n has two children
+//                        let y = minChild(n: n)
+//                        if y.parent === n{
+//                            trans(for: n, substitute: y)
+//                        }else{
+//                            trans(for: y, substitute: y.right)
+//                            trans(for: n, substitute: y)
+//                            y.right = n.right
+//                        }
+//                        y.left = n.left
+//                        y.isBlack = n.isBlack
+//
+//                    }
+//                    break
                 }
             }
         }
     }
     
     func deleteFix(n:RBNode<T>){
+        let x = n
+        while n !== root && n.isBlack {
+            let parent = x.parent!
+            if x === parent.left {
+                let rightBrother = parent.right!
+                
+            }
+        }
+    }
+
+    
+    func deleteLeafFix(n:RBNode<T>){
         if !n.isBlack { // n is red, n has a black child, a nil child
-            if n.left != nil {
+            if n.left != nil {//left child is black
                 let leftChild = n.left!
                 if leftChild.right != nil {
-                    let rightGrandChild = leftChild.right!
+                    let rightGrandChild = leftChild.right! // grand is red
                     rotateToLeft(n: rightGrandChild)
                     rotateToRight(n: rightGrandChild)
                     rightGrandChild.right!.isBlack = true
                 }else {
                     rotateToRight(n: leftChild)
                 }
-            }else{
-                rotateToLeft(n: n.right!)
+            }else{// right child is black
+                let rightChild = n.right!
+                if rightChild.left != nil {
+                    let leftGrandChild = rightChild.left!
+                    rotateToRight(n: leftGrandChild)
+                    rotateToLeft(n: leftGrandChild)
+                    leftGrandChild.left!.isBlack = true
+                }else {
+                    rotateToLeft(n: rightChild)
+                }
             }
+        }else{// n is black
+            if n.left != nil {//left child is black
+                let leftChild = n.left!
+                if !leftChild.isBlack{// if left child is red
+                    if leftChild.right != nil {
+                        let rightGrandChild = leftChild.right! // grand is black
+                        rotateToLeft(n: rightGrandChild)
+                        rotateToRight(n: rightGrandChild)
+                    }else {
+                        rotateToRight(n: leftChild)
+                        leftChild.isBlack = true
+                    }
+                }else{// if left child is black
+                    
+                }
+            }else{// right child is black
+                            }
+            
+//            if n.left != nil {
+//                let leftChild = n.left!
+//                if leftChild.isBlack { // left child is black
+//                    if leftChild.right != nil {
+//                        let rightGrandChild = leftChild.right!
+//                        rotateToLeft(n: rightGrandChild)
+//                        rotateToRight(n: rightGrandChild)
+//                        rightGrandChild.right!.isBlack = true
+//                    }else {
+//                        rotateToRight(n: leftChild)
+//                    }
+//                }
+//            }else{
+//                //                let rightChild = n.right!
+//            }
         }
 //        var x = n
 //        if !x.isBlack {
@@ -154,11 +282,15 @@ class RBTree<T:Comparable>{
     
     func trans(for n1:RBNode<T> ,substitute n2:RBNode<T>?){
         n2?.parent = n1.parent
-        let parent = n1.parent!
-        if n1 === parent.left{
-            parent.left = n2
+        if n1.parent == nil {
+            root = n2
         }else{
-            parent.right = n2
+            let parent = n1.parent!
+            if n1 === parent.left{
+                parent.left = n2
+            }else{
+                parent.right = n2
+            }
         }
     }
 

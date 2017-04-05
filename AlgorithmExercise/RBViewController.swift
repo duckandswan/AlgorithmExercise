@@ -179,8 +179,9 @@ class RBViewController: UIViewController {
         }
     }
     
-    
-    
+    override func viewDidLayoutSubviews() {
+        
+    }
 
 }
 

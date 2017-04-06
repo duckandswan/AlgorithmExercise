@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GameKit
+
 
 class RBViewController: UIViewController {
 
@@ -30,8 +32,17 @@ class RBViewController: UIViewController {
 //        [445,435,437,433].forEach { (i) in
 //            t.insert(e: i)
 //        }
+        let rs = GKMersenneTwisterRandomSource()
+        rs.seed = 100
+        
+        // Use the random source and a lowest and highest value to create a
+        // GKRandomDistribution object that will provide the random numbers.
+        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
+        
         (1...100).forEach{_ in
-            t.insert(e: Int(arc4random_uniform(999)))}
+            t.insert(e: rd.nextInt())}
+//        (1...100).forEach{_ in
+//            t.insert(e: Int(arc4random_uniform(999)))}
         drawRBTree(t: t)
     }
     @IBAction func add(_ sender: UIBarButtonItem) {

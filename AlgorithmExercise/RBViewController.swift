@@ -64,6 +64,14 @@ class RBViewController: UIViewController {
             adjustButton.isEnabled = true
         }
     }
+    @IBAction func subtract(_ sender: UIBarButtonItem) {
+        if let i = Int(tf.text!){
+            t.delete(e: i)
+            drawRBTree(t: t)
+        }
+        view.endEditing(false)
+
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -79,8 +87,6 @@ class RBViewController: UIViewController {
                 l.removeFromSuperlayer()
             }
         }
-        
-
         
         let nodeW:CGFloat = 25
         let rowH = nodeW
@@ -125,6 +131,8 @@ class RBViewController: UIViewController {
                 button.backgroundColor = n.isBlack ? UIColor.black : UIColor.red
             }
             scrollView.addSubview(button)
+            
+            button.addTarget(self, action: #selector(RBViewController.clickToDelete(b:)), for: .touchUpInside)
             
             if n.left != nil {
                 let p1 = center

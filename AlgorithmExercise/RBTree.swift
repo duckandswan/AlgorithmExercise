@@ -9,8 +9,11 @@
 import UIKit
 
 class RBNode<T:Comparable>{
-//    let element:T!
     let element:T
+    init(element e:T,isBlack b:Bool = true) {
+        element = e
+        isBlack = b
+    }
     var isBlack = true
     
     var left:RBNode<T>?
@@ -167,10 +170,10 @@ class RBTree<T:Comparable>{
                         n = n.right!
                     }
                 }else { // e == n.element
-                    if n === root!{
-                        root = nil
-                        return
-                    }
+//                    if n === root!{
+//                        root = nil
+//                        return
+//                    }
 //                    var originalColor = n.isBlack
 //                    var needToFixNode:RBNode<T>
 //                    sentinel = RBNode<T>(element: e,isBlack: true)
@@ -224,6 +227,10 @@ class RBTree<T:Comparable>{
                             if !n.isBlack{// n is red leaf
                                 trans(for: n, substitute: nil)
                             }else{// n is black leaf, brother is black
+                                if n === root!{
+                                    root = nil
+                                    return
+                                }
                                 let parent = n.parent!
                                 trans(for: n, substitute: nil)
                                 deleteLeafFix(n: parent)
@@ -234,7 +241,7 @@ class RBTree<T:Comparable>{
                         trans(for: n, substitute: n.left)
                     }else{ // n has two children
                         let y = minChild(n: n.right!)
-                        var p = n.parent!
+                        var p = y.parent!
                         let x = y.right
                         if y.parent === n{
                             trans(for: n, substitute: y)
@@ -494,7 +501,7 @@ class RBTree<T:Comparable>{
     func rotateToRight(n:RBNode<T>){
         let parent = n.parent!
         parent.left = n.right
-        n.right?.parent = parent //n.roght may be nil
+        n.right?.parent = parent
         n.right = parent
         if parent === root!{
             root = n

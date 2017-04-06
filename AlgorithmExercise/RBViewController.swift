@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GameKit
+
 
 class RBViewController: UIViewController {
 
@@ -34,8 +36,23 @@ class RBViewController: UIViewController {
 //        [445,435,437,433].forEach { (i) in
 //            t.insert(e: i)
 //        }
-        (1...5).forEach{_ in
-            t.insert(e: Int(arc4random_uniform(1000)))}
+        let rs = GKMersenneTwisterRandomSource()
+        rs.seed = 100
+        
+        // Use the random source and a lowest and highest value to create a
+        // GKRandomDistribution object that will provide the random numbers.
+        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
+        
+        (1...100).forEach{_ in
+            t.insert(e: rd.nextInt())}
+
+        
+
+//        (1...100).forEach{_ in
+//            t.insert(e: Int(arc4random_uniform(1000)))}
+//        stride(from: 500, through: 100, by: -5).forEach { (i) in
+//            t.insert(e: i)
+//        }
         drawRBTree(t: t)
     }
     @IBAction func add(_ sender: UIBarButtonItem) {
@@ -48,6 +65,12 @@ class RBViewController: UIViewController {
         }
         view.endEditing(false)
         enableOrDisableButtons()
+    }
+    @IBAction func subtract(_ sender: UIBarButtonItem) {
+        if let i = Int(tf.text!){
+            t.delete(e: i)
+            drawRBTree(t: t)
+        }
     }
     @IBAction func rotate(_ sender: UIBarButtonItem) {
         t.adjust()
@@ -63,15 +86,9 @@ class RBViewController: UIViewController {
             addButton.isEnabled = false
             adjustButton.isEnabled = true
         }
-    }
-    @IBAction func subtract(_ sender: UIBarButtonItem) {
-        if let i = Int(tf.text!){
-            t.delete(e: i)
-            drawRBTree(t: t)
-        }
         view.endEditing(false)
-
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -91,7 +108,7 @@ class RBViewController: UIViewController {
         let nodeW:CGFloat = 25
         let rowH = nodeW
         
-        let timeInterval:TimeInterval = 2.5
+        let timeInterval:TimeInterval = 1.5
         
         func addLine(p1:CGPoint,p2:CGPoint,line:CAShapeLayer){
 //            let line = CAShapeLayer()
@@ -121,7 +138,8 @@ class RBViewController: UIViewController {
 //            let button = UIButton()
             let button = n.b
             button.frame.size = CGSize(width: nodeW, height: nodeW)
-            button.isEnabled = false
+            button.isEnabled = true
+            button.backgroundColor = n.isBlack ? UIColor.black : UIColor.red
             button.setTitleColor(UIColor.white, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
             button.setTitle(String(describing: n.element), for: .normal)
@@ -201,9 +219,13 @@ class RBViewController: UIViewController {
 //        }
         
     }
-}
-
-class RBButton: UIButton {
+    
+    func clickToDelete(b:UIButton){
+        if let i = Int(b.titleLabel!.text!){
+            t.delete(e: i)
+            drawRBTree(t: t)
+        }
+    }
 
 }
 

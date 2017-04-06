@@ -166,7 +166,7 @@ class RBTree<T:Comparable>{
                         trans(for: n, substitute: n.left)
                     }else{ // n has two children
                         let y = minChild(n: n.right!)
-                        var p = y.parent!
+                        var p = n.parent!
                         let x = y.right
                         if y.parent === n{
                             trans(for: n, substitute: y)
@@ -178,11 +178,15 @@ class RBTree<T:Comparable>{
                             n.right!.parent = y
                         }
                         y.left = n.left
+                        n.left?.parent = y
+                        let originalColor = y.isBlack
                         y.isBlack = n.isBlack
-                        if x != nil {
-                            x!.isBlack = true
-                        }else{
-                            deleteLeafFix(n: p)
+                        if originalColor{
+                            if x != nil {
+                                x!.isBlack = true
+                            }else{
+                                deleteLeafFix(n: p)
+                            }
                         }
                     }
                     break
@@ -209,8 +213,8 @@ class RBTree<T:Comparable>{
                         p.isBlack = true
                         break
                     }else{
-                        p = p.parent!
                         x = p
+                        p = p.parent!
                     }
                 }else{// r.left is red
                     if (r.right == nil) || (r.right != nil && r.right!.isBlack) {
@@ -220,8 +224,8 @@ class RBTree<T:Comparable>{
                         rotateToRight(n: rl)
                         r = rl
                     }
-                    r.isBlack = n.isBlack
-                    n.isBlack = true
+                    r.isBlack = p.isBlack
+                    p.isBlack = true
                     r.right!.isBlack = true
                     rotateToLeft(n: r)
                     break
@@ -239,8 +243,8 @@ class RBTree<T:Comparable>{
                         p.isBlack = true
                         break
                     }else{
-                        p = p.parent!
                         x = p
+                        p = p.parent!
                     }
                 }else{// r.left is red
                     if (l.left == nil) || (l.left != nil && l.left!.isBlack) {
@@ -250,8 +254,8 @@ class RBTree<T:Comparable>{
                         rotateToLeft(n: lr)
                         l = lr
                     }
-                    l.isBlack = n.isBlack
-                    n.isBlack = true
+                    l.isBlack = p.isBlack
+                    p.isBlack = true
                     l.left!.isBlack = true
                     rotateToRight(n: l)
                     break

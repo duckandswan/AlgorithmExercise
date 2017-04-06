@@ -30,7 +30,7 @@ class RBViewController: UIViewController {
 //        [445,435,437,433].forEach { (i) in
 //            t.insert(e: i)
 //        }
-        (1...50).forEach{_ in
+        (1...100).forEach{_ in
             t.insert(e: Int(arc4random_uniform(999)))}
         drawRBTree(t: t)
     }

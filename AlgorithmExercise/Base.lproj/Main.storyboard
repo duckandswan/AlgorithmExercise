@@ -25,11 +25,11 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BHx-Dd-9qa" id="a3C-8A-mBK">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="RBTree" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tUD-A7-mOE">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -72,13 +72,18 @@
                     <navigationItem key="navigationItem" id="Fbf-H8-wgk">
                         <nil key="title"/>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="Ve1-LY-i4P">
-                            <rect key="frame" x="148" y="7" width="80" height="30"/>
+                            <rect key="frame" x="147.5" y="7" width="80" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <rightBarButtonItems>
+                            <barButtonItem title="减" id="wXT-e6-Sci">
+                                <connections>
+                                    <action selector="subtract:" destination="X6o-Os-6oH" id="lnQ-9k-ScI"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="加" id="ue2-Pw-mG5">
                                 <connections>
                                     <action selector="add:" destination="X6o-Os-6oH" id="iBf-uL-AXD"/>
@@ -95,6 +100,7 @@
                     <connections>
                         <outlet property="addButton" destination="ue2-Pw-mG5" id="k9g-Hv-SxF"/>
                         <outlet property="adjustButton" destination="lkf-qU-Rvc" id="lar-cc-4OX"/>
+                        <outlet property="subtractButton" destination="wXT-e6-Sci" id="HUq-9W-Vc8"/>
                         <outlet property="tf" destination="Ve1-LY-i4P" id="nC3-XR-PJ9"/>
                     </connections>
                 </viewController>

@@ -14,6 +14,8 @@ class RBViewController: UIViewController {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
     
+    @IBOutlet weak var subtractButton: UIBarButtonItem!
+    
     @IBOutlet weak var adjustButton: UIBarButtonItem!
     
     @IBOutlet weak var tf: UITextField!
@@ -54,9 +56,10 @@ class RBViewController: UIViewController {
 //            t.insert(e: i)
 //        }
         drawRBTree(t: t)
+        enableOrDisableButtons()
     }
     @IBAction func add(_ sender: UIBarButtonItem) {
-        if t.needToAdjustNode != nil {
+        if t.insertNode != nil {
             return
         }
         if let i = Int(tf.text!){
@@ -70,20 +73,41 @@ class RBViewController: UIViewController {
         if let i = Int(tf.text!){
             t.delete(e: i)
             drawRBTree(t: t)
+            enableOrDisableButtons()
         }
     }
+    
     @IBAction func rotate(_ sender: UIBarButtonItem) {
-        t.adjust()
+        if t.insertNode != nil {
+            t.insertAdjust()
+        }else if t.parentForDelete != nil {
+            t.deleteAdjust()
+        }else{
+            return
+        }
         drawRBTree(t: t)
         enableOrDisableButtons()
     }
     
+    func clickToDelete(b:UIButton){
+        if t.parentForDelete != nil {
+            return
+        }
+        if let i = Int(b.titleLabel!.text!){
+            t.delete(e: i)
+            drawRBTree(t: t)
+            enableOrDisableButtons()
+        }
+    }
+    
     func enableOrDisableButtons(){
-        if t.needToAdjustNode == nil{
+        if t.insertNode == nil && t.parentForDelete == nil{
             addButton.isEnabled = true
+            subtractButton.isEnabled = true
             adjustButton.isEnabled = false
         }else{
             addButton.isEnabled = false
+            subtractButton.isEnabled = false
             adjustButton.isEnabled = true
         }
         view.endEditing(false)
@@ -220,12 +244,7 @@ class RBViewController: UIViewController {
         
     }
     
-    func clickToDelete(b:UIButton){
-        if let i = Int(b.titleLabel!.text!){
-            t.delete(e: i)
-            drawRBTree(t: t)
-        }
-    }
+
 
 }
 

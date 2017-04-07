@@ -170,54 +170,6 @@ class RBTree<T:Comparable>{
                         n = n.right!
                     }
                 }else { // e == n.element
-//                    if n === root!{
-//                        root = nil
-//                        return
-//                    }
-//                    var originalColor = n.isBlack
-//                    var needToFixNode:RBNode<T>
-//                    sentinel = RBNode<T>(element: e,isBlack: true)
-//
-//                    if n.left == nil {
-//                        if n.right == nil{
-//                            n.right = sentinel
-//                        }
-//                        needToFixNode = n.right!
-//                        trans(for: n, substitute: n.right)
-//                    }else if n.right == nil {
-//                        needToFixNode = n.left!
-//                        trans(for: n, substitute: n.left)
-//                    }else{
-//                        let y = minChild(n: n.right!)
-//                        originalColor = y.isBlack
-//                        if y.right == nil{
-//                            y.right = sentinel
-//                        }
-//                        needToFixNode = y.right!
-//                        if y.parent === n{
-//                            needToFixNode.parent = y // may be sentinel
-//                        }else{
-//                            trans(for: y, substitute: y.right)
-//                            y.right = n.right
-//                            y.right!.parent = y
-//                        }
-//                        trans(for: n, substitute: y)
-//                        y.left = n.left
-//                        y.isBlack = n.isBlack
-//                    }
-//                    if originalColor{
-//
-////                        deleteFix(n: needToFixNode)
-//                    }else{
-//
-//                    }
-//                    if sentinel != nil {
-//                        trans(for: sentinel!, substitute: nil)
-//                        sentinel = nil
-//                    }
-//                    break
-
-                    
 
                     if n.left == nil{
                         if n.right != nil {// n is black,n's left is nil, n's right is red
@@ -338,79 +290,6 @@ class RBTree<T:Comparable>{
 
             }
         }
-
-//        if !n.isBlack { // n is red, n has a black child, a nil child
-//            if n.left != nil {//left child is black
-//                let leftChild = n.left!
-//                if leftChild.right != nil {
-//                    let rightGrandChild = leftChild.right! // grand is red
-//                    rotateToLeft(n: rightGrandChild)
-//                    rotateToRight(n: rightGrandChild)
-//                    rightGrandChild.right!.isBlack = true
-//                }else {
-//                    rotateToRight(n: leftChild)
-//                }
-//            }else{// right child is black
-//                let rightChild = n.right!
-//                if rightChild.left != nil {
-//                    let leftGrandChild = rightChild.left!
-//                    rotateToRight(n: leftGrandChild)
-//                    rotateToLeft(n: leftGrandChild)
-//                    leftGrandChild.left!.isBlack = true
-//                }else {
-//                    rotateToLeft(n: rightChild)
-//                }
-//            }
-//        }else{// n is black
-//            if n.left != nil {//left child is black
-//                let leftChild = n.left!
-//                if !leftChild.isBlack{// if left child is red
-//                    if leftChild.right != nil {
-//                        let rightGrandChild = leftChild.right! // grand is black
-//                        rotateToLeft(n: rightGrandChild)
-//                        rotateToRight(n: rightGrandChild)
-//                    }else {
-//                        rotateToRight(n: leftChild)
-//                        leftChild.isBlack = true
-//                    }
-//                }else{// if left child is black
-//                    
-//                }
-//            }else{// right child is black
-//                            }
-        
-//            if n.left != nil {
-//                let leftChild = n.left!
-//                if leftChild.isBlack { // left child is black
-//                    if leftChild.right != nil {
-//                        let rightGrandChild = leftChild.right!
-//                        rotateToLeft(n: rightGrandChild)
-//                        rotateToRight(n: rightGrandChild)
-//                        rightGrandChild.right!.isBlack = true
-//                    }else {
-//                        rotateToRight(n: leftChild)
-//                    }
-//                }
-//            }else{
-//                //                let rightChild = n.right!
-//            }
-//        }
-//        var x = n
-//        if !x.isBlack {
-//            
-//        }
-//        while x !== root && x.isBlack {
-//            let parent = x.parent!
-//            
-//            if x === parent.left{
-//                let rightBrother = parent.right!
-//                if rightBrother.isBlack && rightBrother.isBlack{
-//                    
-//                }
-//            }
-//            
-//        }
-//        x.isBlack = true
     }
     
     func trans(for n1:RBNode<T> ,substitute n2:RBNode<T>?){

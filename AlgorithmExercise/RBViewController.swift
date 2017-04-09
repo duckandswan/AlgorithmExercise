@@ -55,7 +55,7 @@ class RBViewController: UIViewController {
 //        stride(from: 500, through: 100, by: -5).forEach { (i) in
 //            t.insert(e: i)
 //        }
-        drawRBTree(t: t)
+        drawRBTree(t: t, isAnimated: false)
         enableOrDisableButtons()
     }
     @IBAction func add(_ sender: UIBarButtonItem) {
@@ -118,7 +118,7 @@ class RBViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func drawRBTree<T:Comparable>(t:RBTree<T>){
+    func drawRBTree<T:Comparable>(t:RBTree<T>, isAnimated:Bool = true){
         for v in scrollView.subviews{
             v.removeFromSuperview()
         }
@@ -132,7 +132,7 @@ class RBViewController: UIViewController {
         let nodeW:CGFloat = 25
         let rowH = nodeW
         
-        let timeInterval:TimeInterval = 1.5
+        let timeInterval:TimeInterval = isAnimated ? 1.5 : 0
         
         func addLine(p1:CGPoint,p2:CGPoint,line:CAShapeLayer){
 //            let line = CAShapeLayer()
@@ -242,6 +242,10 @@ class RBViewController: UIViewController {
 //            button.center = CGPoint(x: SCREEN_W / 2, y: button.frame.width / 2)
 //        }
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        print("UIScreen.main.bounds: \(UIScreen.main.bounds)")
     }
     
 

@@ -74,6 +74,7 @@
 		E825991F1E8D3BFF0073A90A /* AlgorithmExercise */ = {
 			isa = PBXGroup;
 			children = (
+				E8D6028E1E99DD3700DAD9DA /* Extension */,
 				E8E20D351E8DD46300C50230 /* Controller */,
 				E82599321E8D3C3E0073A90A /* Data Structure */,
 				E82599201E8D3BFF0073A90A /* AppDelegate.swift */,
@@ -89,7 +90,6 @@
 		E82599321E8D3C3E0073A90A /* Data Structure */ = {
 			isa = PBXGroup;
 			children = (
-				E8E20D3A1E8EA53D00C50230 /* CGPoint+Extensions.swift */,
 				E82599341E8D3C9C0073A90A /* MyHeap.swift */,
 				E82599351E8D3C9C0073A90A /* QuickSort.swift */,
 				E82599361E8D3C9C0073A90A /* Test.swift */,
@@ -100,6 +100,14 @@
 				E8490D2B1E8FADB0002A23D4 /* Algorithm.txt */,
 			);
 			name = "Data Structure";
+			sourceTree = "<group>";
+		};
+		E8D6028E1E99DD3700DAD9DA /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E8E20D3A1E8EA53D00C50230 /* CGPoint+Extensions.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 		E8E20D351E8DD46300C50230 /* Controller */ = {

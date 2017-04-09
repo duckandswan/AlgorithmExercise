@@ -163,15 +163,14 @@ class RBViewController: UIViewController {
             let button = n.b
             button.frame.size = CGSize(width: nodeW, height: nodeW)
             button.isEnabled = true
-            button.backgroundColor = n.isBlack ? UIColor.black : UIColor.red
             button.setTitleColor(UIColor.white, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
             button.setTitle(String(describing: n.element), for: .normal)
             button.layer.cornerRadius = nodeW / 2
             UIView.animate(withDuration: timeInterval) {
                 button.center = center
-                button.backgroundColor = n.isBlack ? UIColor.black : UIColor.red
             }
+            button.backgroundColor = n.isBlack ? UIColor.black : UIColor.red
             scrollView.addSubview(button)
             
             button.addTarget(self, action: #selector(RBViewController.clickToDelete(b:)), for: .touchUpInside)

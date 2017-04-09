@@ -214,7 +214,7 @@ class RBViewController: UIViewController {
         
         let rowNumber = rowArr.count
         var curX:CGFloat
-        var curY:CGFloat = rowH * CGFloat(rowNumber) - nodeW * 1 / 2
+        var curY:CGFloat = rowH * CGFloat(rowNumber + 1) - nodeW * 1 / 2
         if (curY + rowH)  > scrollView.contentSize.height{
             scrollView.contentSize.height = curY + rowH
         }
@@ -245,6 +245,7 @@ class RBViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         print("UIScreen.main.bounds: \(UIScreen.main.bounds)")
+        scrollView.frame = UIScreen.main.bounds
     }
     
 

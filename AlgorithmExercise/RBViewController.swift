@@ -18,8 +18,11 @@ class RBViewController: UIViewController {
     
     @IBOutlet weak var adjustButton: UIBarButtonItem!
     
+    @IBOutlet weak var preButton: UIBarButtonItem!
+    
+    
     @IBOutlet weak var tf: UITextField!
-    let t = RBTree<Int>()
+    var t = RBTree<Int>()
     let scrollView = UIScrollView()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +30,12 @@ class RBViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         scrollView.frame = view.bounds
         scrollView.contentSize = view.bounds.size
+        scrollView.keyboardDismissMode = .onDrag
         view.addSubview(scrollView)
+        
+        let pinchGestureRecognizer =  UIPinchGestureRecognizer(target: self,
+                                                               action: #selector(RBViewController.handlePinches(_:)))
+        scrollView.addGestureRecognizer(pinchGestureRecognizer)
         
 //        t.insert(e: 105)
 //        t.insert(e: 100)
@@ -58,22 +66,45 @@ class RBViewController: UIViewController {
         drawRBTree(t: t, isAnimated: false)
         enableOrDisableButtons()
     }
+    
+    func handlePinches(_ sender: UIPinchGestureRecognizer){
+        
+        if sender.state != .ended && sender.state != .failed{
+            scrollView.transform = scrollView.transform.scaledBy(x: sender.scale, y: sender.scale)
+            scrollView.frame = UIScreen.main.bounds
+            sender.scale = 1
+        }else{
+
+        }
+    }
+    
+    var treeArr:[RBTree<Int>] = []
+    
+    @IBAction func preStep(_ sender: UIBarButtonItem) {
+        if treeArr.count > 0 {
+            t = treeArr.removeLast()
+            drawRBTree(t: t)
+            enableOrDisableButtons()
+        }
+    }
+    
+    
     @IBAction func add(_ sender: UIBarButtonItem) {
         if t.insertNode != nil {
             return
         }
         if let i = Int(tf.text!){
+            treeArr.append(t.copy())
             t.insert(e: i,delayAdjust: true)
             drawRBTree(t: t)
         }
-        view.endEditing(false)
+        view.endEditing(true)
         enableOrDisableButtons()
     }
+    
     @IBAction func subtract(_ sender: UIBarButtonItem) {
         if let i = Int(tf.text!){
-            t.delete(e: i)
-            drawRBTree(t: t)
-            enableOrDisableButtons()
+            delete(i: i)
         }
     }
     
@@ -89,14 +120,19 @@ class RBViewController: UIViewController {
         enableOrDisableButtons()
     }
     
+    func delete(i:Int){
+        treeArr.append(t.copy())
+        t.delete(e: i)
+        drawRBTree(t: t)
+        enableOrDisableButtons()
+    }
+    
     func clickToDelete(b:UIButton){
         if t.parentForDelete != nil {
             return
         }
         if let i = Int(b.titleLabel!.text!){
-            t.delete(e: i)
-            drawRBTree(t: t)
-            enableOrDisableButtons()
+            delete(i: i)
         }
     }
     
@@ -110,6 +146,7 @@ class RBViewController: UIViewController {
             subtractButton.isEnabled = false
             adjustButton.isEnabled = true
         }
+        preButton.isEnabled = treeArr.count > 0
         view.endEditing(false)
     }
 

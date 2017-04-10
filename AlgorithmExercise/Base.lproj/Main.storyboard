@@ -72,7 +72,7 @@
                     <navigationItem key="navigationItem" id="Fbf-H8-wgk">
                         <nil key="title"/>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="Ve1-LY-i4P">
-                            <rect key="frame" x="147.5" y="7" width="80" height="30"/>
+                            <rect key="frame" x="137" y="7" width="80" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -94,12 +94,18 @@
                                     <action selector="rotate:" destination="X6o-Os-6oH" id="3cZ-cn-3mQ"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="退" id="gjU-6i-5IU">
+                                <connections>
+                                    <action selector="preStep:" destination="X6o-Os-6oH" id="E3l-hR-069"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="addButton" destination="ue2-Pw-mG5" id="k9g-Hv-SxF"/>
                         <outlet property="adjustButton" destination="lkf-qU-Rvc" id="lar-cc-4OX"/>
+                        <outlet property="preButton" destination="gjU-6i-5IU" id="pbZ-LJ-8B3"/>
                         <outlet property="subtractButton" destination="wXT-e6-Sci" id="HUq-9W-Vc8"/>
                         <outlet property="tf" destination="Ve1-LY-i4P" id="nC3-XR-PJ9"/>
                     </connections>

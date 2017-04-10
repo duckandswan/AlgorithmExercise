@@ -261,11 +261,14 @@ class RBViewController: UIViewController {
                 }
                 let spaceX = nodeW * pow(2, CGFloat(i))
 //                print("spaceX: \(spaceX)")
+                if curX > scrollView.contentSize.width{
+                    scrollView.contentSize.width = curX
+                }
                 curX += spaceX
 //                curX += nodeW
             }
-            if curX > scrollView.contentSize.width{
-                scrollView.contentSize.width = curX
+            if curY > scrollView.contentSize.height{
+                scrollView.contentSize.height = curY
             }
             curY -= rowH
         }

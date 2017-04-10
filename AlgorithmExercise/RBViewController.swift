@@ -141,10 +141,12 @@ class RBViewController: UIViewController {
             addButton.isEnabled = true
             subtractButton.isEnabled = true
             adjustButton.isEnabled = false
+            t.setButtonEnable(isEnable: true)
         }else{
             addButton.isEnabled = false
             subtractButton.isEnabled = false
             adjustButton.isEnabled = true
+            t.setButtonEnable(isEnable: false)
         }
         preButton.isEnabled = treeArr.count > 0
         view.endEditing(false)
@@ -201,6 +203,7 @@ class RBViewController: UIViewController {
             button.frame.size = CGSize(width: nodeW, height: nodeW)
             button.isEnabled = true
             button.setTitleColor(UIColor.white, for: .normal)
+            button.setTitleColor(UIColor.gray, for: .disabled)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
             button.setTitle(String(describing: n.element), for: .normal)
             button.layer.cornerRadius = nodeW / 2

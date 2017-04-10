@@ -10,9 +10,9 @@ import UIKit
 
 class RBNode<T:Comparable>{
     let element:T
-    init(element e:T,isBlack b:Bool = true) {
+    init(element e:T,isBlack bool:Bool = true) {
         element = e
-        isBlack = b
+        isBlack = bool
     }
     var isBlack = true
     
@@ -613,8 +613,17 @@ class RBTree<T:Comparable>{
         }
     }
     
+    func setButtonEnable(isEnable:Bool){
+        setButtonEnable(n: root, isEnable: isEnable)
+    }
     
-    
+    private func setButtonEnable(n:RBNode<T>?,isEnable:Bool){
+        if n != nil {
+            n!.b.isEnabled = isEnable
+            setButtonEnable(n: n!.left, isEnable: isEnable)
+            setButtonEnable(n: n!.right, isEnable: isEnable)
+        }
+    }
     
     
     

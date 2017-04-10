@@ -37,29 +37,24 @@ class RBViewController: UIViewController {
                                                                action: #selector(RBViewController.handlePinches(_:)))
         scrollView.addGestureRecognizer(pinchGestureRecognizer)
         
-//        t.insert(e: 105)
-//        t.insert(e: 100)
-//        t.insert(e: 99)
 //        stride(from: 500, through: 100, by: -10).forEach { (i) in
 //            t.insert(e: i)
 //        }
 //        [445,435,437,433].forEach { (i) in
 //            t.insert(e: i)
 //        }
-        let rs = GKMersenneTwisterRandomSource()
-        rs.seed = 100
         
-        // Use the random source and a lowest and highest value to create a
-        // GKRandomDistribution object that will provide the random numbers.
-        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
-        
-        (1...100).forEach{_ in
-            t.insert(e: rd.nextInt())}
-
-        
-
+//        let rs = GKMersenneTwisterRandomSource()
+//        rs.seed = 100
+//        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
+//        
 //        (1...100).forEach{_ in
-//            t.insert(e: Int(arc4random_uniform(1000)))}
+//            t.insert(e: rd.nextInt())}
+
+        
+
+        (1...100).forEach{_ in
+            t.insert(e: Int(arc4random_uniform(1000)))}
 //        stride(from: 500, through: 100, by: -5).forEach { (i) in
 //            t.insert(e: i)
 //        }
@@ -203,7 +198,7 @@ class RBViewController: UIViewController {
             button.frame.size = CGSize(width: nodeW, height: nodeW)
             button.isEnabled = true
             button.setTitleColor(UIColor.white, for: .normal)
-            button.setTitleColor(UIColor.gray, for: .disabled)
+            button.setTitleColor(UIColor.aqua, for: .disabled)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
             button.setTitle(String(describing: n.element), for: .normal)
             button.layer.cornerRadius = nodeW / 2

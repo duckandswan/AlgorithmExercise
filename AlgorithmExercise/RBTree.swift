@@ -620,6 +620,7 @@ class RBTree<T:Comparable>{
     private func setButtonEnable(n:RBNode<T>?,isEnable:Bool){
         if n != nil {
             n!.b.isEnabled = isEnable
+//            n!.b.alpha = isEnable ? 1 : 0.75
             setButtonEnable(n: n!.left, isEnable: isEnable)
             setButtonEnable(n: n!.right, isEnable: isEnable)
         }

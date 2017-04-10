@@ -105,8 +105,10 @@ class RBViewController: UIViewController {
     
     @IBAction func rotate(_ sender: UIBarButtonItem) {
         if t.insertNode != nil {
+            treeArr.append(t.copy())
             t.insertAdjust()
         }else if t.parentForDelete != nil {
+            treeArr.append(t.copy())
             t.deleteAdjust()
         }else{
             return

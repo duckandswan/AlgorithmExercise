@@ -592,23 +592,32 @@ class RBTree<T:Comparable>{
     
     func copy()->RBTree<T>{
         let t = RBTree<T>()
-        t.root = copy(n: root)
+        t.root = copy(n: root,t:t)
         return t
     }
     
-    private func copy(n:RBNode<T>?)->RBNode<T>?{
+    private func copy(n:RBNode<T>? , t:RBTree<T>)->RBNode<T>?{
         if n == nil {
             return nil
         }else{
             let copiedN = RBNode<T>(element: n!.element)
-            copiedN.left = copy(n: n!.left)
-            copiedN.right = copy(n: n!.right)
+            copiedN.left = copy(n: n!.left,t:t)
+            copiedN.right = copy(n: n!.right,t:t)
             copiedN.left?.parent = copiedN
             copiedN.right?.parent = copiedN
             copiedN.isBlack = n!.isBlack
             copiedN.b = n!.b
             copiedN.leftLine = n!.leftLine
             copiedN.rightLine = n!.rightLine
+            if  n === insertNode{
+                t.insertNode = copiedN
+            }
+            if n === deleteNode{
+                t.deleteNode = copiedN
+            }
+            if n === parentForDelete{
+                t.parentForDelete = copiedN
+            }
             return copiedN
         }
     }

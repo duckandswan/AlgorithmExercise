@@ -27,19 +27,19 @@ class RBNode<T:Comparable>{
 class RBTree<T:Comparable>{
     var root:RBNode<T>?
     
-    var insertNode:RBNode<T>?
+    var nodeNeedInsertAdjust:RBNode<T>?
     
     func insertAdjust(){
-//        if let n = insertNode {
+//        if let n = nodeNeedInsertAdjust {
 //            adjust(n: n)
 //        }
-//        insertNode = nil
+//        nodeNeedInsertAdjust = nil
         //it's parent are red
-        if insertNode == nil {
+        if nodeNeedInsertAdjust == nil {
             return
         }
-        let current = insertNode!
-        var parent = insertNode!.parent!
+        let current = nodeNeedInsertAdjust!
+        var parent = nodeNeedInsertAdjust!.parent!
         if !parent.isBlack {
             let grandparent = parent.parent!
             if parent === grandparent.left{//1 parent is left child
@@ -51,17 +51,17 @@ class RBTree<T:Comparable>{
                     rotateToRight(n: parent) // 1.1.2 current is parent's left child
                     parent.isBlack = true
                     parent.right!.isBlack = false
-                    insertNode = nil
+                    nodeNeedInsertAdjust = nil
                     //
                 }else { //1.2 grandparent's right is red
                     reverseColor(n: grandparent) // 1.2.1reverse color
                     if grandparent === root!{
                         grandparent.isBlack = true
-                        insertNode = nil
+                        nodeNeedInsertAdjust = nil
                     }else if !grandparent.parent!.isBlack{ //1.2.2 grandparent's parent is red after reverse
-                        insertNode = grandparent
+                        nodeNeedInsertAdjust = grandparent
                     }else{ //1.2.3 grandparent's parent is black after reverse
-                        insertNode = nil
+                        nodeNeedInsertAdjust = nil
                     }
                 }
             }else{ //2 parent is right child
@@ -73,23 +73,23 @@ class RBTree<T:Comparable>{
                     rotateToLeft(n: parent)
                     parent.isBlack = true
                     parent.left!.isBlack = false
-                    insertNode = nil
+                    nodeNeedInsertAdjust = nil
                     //
                 }else { //1.2 grandparent's left is red
                     reverseColor(n: grandparent) // 1.2.1reverse color
                     if grandparent === root!{
                         grandparent.isBlack = true
-                        insertNode = nil
+                        nodeNeedInsertAdjust = nil
                     }else if !grandparent.parent!.isBlack{ //1.2.2 grandparent's parent is red after reverse
-                        insertNode = grandparent
+                        nodeNeedInsertAdjust = grandparent
                     }else{ //1.2.3 grandparent's parent is black after reverse
-                        insertNode = nil
+                        nodeNeedInsertAdjust = nil
                     }
                 }
                 
             }
         }else{
-            insertNode = nil
+            nodeNeedInsertAdjust = nil
         }
         
         
@@ -112,7 +112,7 @@ class RBTree<T:Comparable>{
                             adjust(n: n)
                         }else{
                             if !n.parent!.isBlack {
-                                insertNode = n
+                                nodeNeedInsertAdjust = n
                             }
                         }
                         break
@@ -128,7 +128,7 @@ class RBTree<T:Comparable>{
                             adjust(n: n)
                         }else{
                             if !n.parent!.isBlack {
-                                insertNode = n
+                                nodeNeedInsertAdjust = n
                             }
                         }
                         break
@@ -223,8 +223,8 @@ class RBTree<T:Comparable>{
     
     
 
-    var deleteNode:RBNode<T>?
-    var parentForDelete:RBNode<T>?
+    var childNeedDeleteAdjust:RBNode<T>?
+    var nodeNeedDeleteAdjust:RBNode<T>?
     
     func delete(e:T){
         if root == nil {
@@ -249,8 +249,8 @@ class RBTree<T:Comparable>{
                     if n.left == nil{
                         if n.right != nil {// n is black,n's left is nil, n's right is red
 //                            n.right!.isBlack = true
-                            parentForDelete = n.parent
-                            deleteNode = n.right
+                            nodeNeedDeleteAdjust = n.parent
+                            childNeedDeleteAdjust = n.right
                             trans(for: n, substitute: n.right)
                         }else{// n is a leaf
                             if !n.isBlack{// n is red leaf
@@ -261,27 +261,27 @@ class RBTree<T:Comparable>{
 //                                    return
 //                                }
 //                                let parent = n.parent!
-                                parentForDelete = n.parent
-                                deleteNode = nil
+                                nodeNeedDeleteAdjust = n.parent
+                                childNeedDeleteAdjust = nil
                                 trans(for: n, substitute: nil)
 //                                deleteLeafFix(n: parent)
                             }
                         }
                     }else if n.right == nil { //left child is red，right is nil
 //                        n.left!.isBlack = true
-                        parentForDelete = n.parent
-                        deleteNode = n.left
+                        nodeNeedDeleteAdjust = n.parent
+                        childNeedDeleteAdjust = n.left
                         trans(for: n, substitute: n.left)
                     }else{ // n has two children
                         let y = minChild(n: n.right!)
 //                        var p = y.parent!
-                        parentForDelete = y.parent
-                        deleteNode = y.right
+                        nodeNeedDeleteAdjust = y.parent
+                        childNeedDeleteAdjust = y.right
 //                        let x = y.right
                         if y.parent === n{
                             trans(for: n, substitute: y)
 //                            p = y
-                            parentForDelete = y
+                            nodeNeedDeleteAdjust = y
                         }else{
                             trans(for: y, substitute: y.right)
                             trans(for: n, substitute: y)
@@ -299,7 +299,7 @@ class RBTree<T:Comparable>{
 //                                deleteLeafFix(n: p)
 //                            }
                         }else{
-                            parentForDelete = nil
+                            nodeNeedDeleteAdjust = nil
                         }
                     }
                     break
@@ -309,24 +309,24 @@ class RBTree<T:Comparable>{
     }
     
     func deleteAdjust(){
-        if parentForDelete == nil {
+        if nodeNeedDeleteAdjust == nil {
             return
         }
         
-//        if parentForDelete === root!{
+//        if nodeNeedDeleteAdjust === root!{
 //            root = nil
 //            return
 //        }
         
-        if deleteNode === root || ( deleteNode != nil && !deleteNode!.isBlack) {
-            deleteNode!.isBlack = true
-            parentForDelete = nil
+        if childNeedDeleteAdjust === root || ( childNeedDeleteAdjust != nil && !childNeedDeleteAdjust!.isBlack) {
+            childNeedDeleteAdjust!.isBlack = true
+            nodeNeedDeleteAdjust = nil
             return
         }
         
-        let p = parentForDelete!
+        let p = nodeNeedDeleteAdjust!
 //        let x:RBNode<T>? = nil
-        if p.right !== deleteNode {
+        if p.right !== childNeedDeleteAdjust {
             var r  = p.right!
             if !r.isBlack { // r is red
                 r.isBlack = true
@@ -337,14 +337,14 @@ class RBTree<T:Comparable>{
                 r.isBlack = false
 //                if p === root! || !p.isBlack {
 //                    p.isBlack = true
-//                    parentForDelete = nil
+//                    nodeNeedDeleteAdjust = nil
 //                }else{
 //                    x = p
 //                    p = p.parent!
                    
 //                }
-                deleteNode = p
-                parentForDelete = p.parent
+                childNeedDeleteAdjust = p
+                nodeNeedDeleteAdjust = p.parent
             }else{// r.left is red
                 if (r.right == nil) || (r.right != nil && r.right!.isBlack) {
                     r.isBlack = false
@@ -357,7 +357,7 @@ class RBTree<T:Comparable>{
                 p.isBlack = true
                 r.right!.isBlack = true
                 rotateToLeft(n: r)
-                parentForDelete = nil
+                nodeNeedDeleteAdjust = nil
             }
         }else{
             var l  = p.left!
@@ -370,13 +370,13 @@ class RBTree<T:Comparable>{
                 l.isBlack = false
 //                if p === root! || !p.isBlack {
 //                    p.isBlack = true
-//                    parentForDelete = nil
+//                    nodeNeedDeleteAdjust = nil
 //                }else{
 //                    x = p
 //                    p = p.parent!
 //                }
-                deleteNode = p
-                parentForDelete = p.parent
+                childNeedDeleteAdjust = p
+                nodeNeedDeleteAdjust = p.parent
             }else{// r.left is red
                 if (l.left == nil) || (l.left != nil && l.left!.isBlack) {
                     l.isBlack = false
@@ -389,7 +389,7 @@ class RBTree<T:Comparable>{
                 p.isBlack = true
                 l.left!.isBlack = true
                 rotateToRight(n: l)
-                parentForDelete = nil
+                nodeNeedDeleteAdjust = nil
             }
             
         }
@@ -593,14 +593,14 @@ class RBTree<T:Comparable>{
     func copy()->RBTree<T>{
         let t = RBTree<T>()
         t.root = copy(n: root,t:t)
-//        if  insertNode == nil {
-//            t.insertNode = nil
+//        if  nodeNeedInsertAdjust == nil {
+//            t.nodeNeedInsertAdjust = nil
 //        }
-//        if deleteNode == nil{
-//            t.deleteNode = nil
+//        if childNeedDeleteAdjust == nil{
+//            t.childNeedDeleteAdjust = nil
 //        }
-//        if parentForDelete == nil{
-//            t.parentForDelete = nil
+//        if nodeNeedDeleteAdjust == nil{
+//            t.nodeNeedDeleteAdjust = nil
 //        }
         return t
     }
@@ -618,14 +618,14 @@ class RBTree<T:Comparable>{
             copiedN.b = n!.b
             copiedN.leftLine = n!.leftLine
             copiedN.rightLine = n!.rightLine
-            if  n === insertNode{
-                t.insertNode = copiedN
+            if  n === nodeNeedInsertAdjust{
+                t.nodeNeedInsertAdjust = copiedN
             }
-            if n === deleteNode{
-                t.deleteNode = copiedN
+            if n === childNeedDeleteAdjust{
+                t.childNeedDeleteAdjust = copiedN
             }
-            if n === parentForDelete{
-                t.parentForDelete = copiedN
+            if n === nodeNeedDeleteAdjust{
+                t.nodeNeedDeleteAdjust = copiedN
             }
             return copiedN
         }

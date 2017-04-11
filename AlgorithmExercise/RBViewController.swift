@@ -44,26 +44,26 @@ class RBViewController: UIViewController {
 //            t.insert(e: i)
 //        }
         
-        var arr:[Int] = []
-        let rs = GKMersenneTwisterRandomSource()
-        rs.seed = 104
-        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
-        
-        (1...500).forEach{_ in
-            let i = rd.nextInt()
-            t.insert(e: i)
-            arr.append(i)
-        }
-        print("arr:\(arr)")
-        arr.forEach{delete(i: $0)}
-        
 //        var arr:[Int] = []
-//        (1...4).forEach{_ in
-//            let i = Int(arc4random_uniform(1000))
+//        let rs = GKMersenneTwisterRandomSource()
+//        rs.seed = 104
+//        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
+//        
+//        (1...500).forEach{_ in
+//            let i = rd.nextInt()
 //            t.insert(e: i)
 //            arr.append(i)
 //        }
 //        print("arr:\(arr)")
+//        arr.forEach{delete(i: $0)}
+        
+        var arr:[Int] = []
+        (1...250).forEach{_ in
+            let i = Int(arc4random_uniform(1000))
+            t.insert(e: i)
+            arr.append(i)
+        }
+        print("arr:\(arr)")
 //        arr.forEach{delete(i: $0)}
         
 //        [585, 909, 152, 398, 654].forEach{t.insert(e: $0)}
@@ -92,6 +92,13 @@ class RBViewController: UIViewController {
     
     var treeArr:[RBTree<Int>] = []
     
+    func addTree(newTree:RBTree<Int>){
+        treeArr.append(newTree)
+        if treeArr.count > 250{
+            treeArr.remove(at: 0)
+        }
+    }
+    
     @IBAction func preStep(_ sender: UIBarButtonItem) {
         if treeArr.count > 0 {
             t = treeArr.removeLast()
@@ -102,11 +109,11 @@ class RBViewController: UIViewController {
     
     
     @IBAction func add(_ sender: UIBarButtonItem) {
-        if t.insertNode != nil {
+        if t.nodeNeedInsertAdjust != nil {
             return
         }
         if let i = Int(tf.text!){
-            treeArr.append(t.copy())
+            addTree(newTree: t.copy())
             t.insert(e: i,delayAdjust: true)
             if isContinuous{
                 rotate()
@@ -125,11 +132,21 @@ class RBViewController: UIViewController {
     
     var isContinuous = true
     
+    @IBAction func resolve(_ sender: UIBarButtonItem) {
+        if sender.title == "断" {
+            sender.title = "连"
+            isContinuous = false
+        }else{
+            sender.title = "断"
+            isContinuous = true
+        }
+    }
+    
     @IBAction func rotate(_ sender: UIBarButtonItem){
-        if t.insertNode != nil {
+        if t.nodeNeedInsertAdjust != nil {
             treeArr.append(t.copy())
             t.insertAdjust()
-        }else if t.parentForDelete != nil {
+        }else if t.nodeNeedDeleteAdjust != nil {
             treeArr.append(t.copy())
             t.deleteAdjust()
         }else{
@@ -142,11 +159,11 @@ class RBViewController: UIViewController {
     
     func rotate(){
         while true {
-            if t.insertNode != nil {
-                treeArr.append(t.copy())
+            if t.nodeNeedInsertAdjust != nil {
+//                treeArr.append(t.copy())
                 t.insertAdjust()
-            }else if t.parentForDelete != nil {
-                treeArr.append(t.copy())
+            }else if t.nodeNeedDeleteAdjust != nil {
+//                treeArr.append(t.copy())
                 t.deleteAdjust()
             }else{
                 break
@@ -158,7 +175,8 @@ class RBViewController: UIViewController {
     }
     
     func delete(i:Int){
-        treeArr.append(t.copy())
+        addTree(newTree: t.copy())
+        
         t.delete(e: i)
         drawRBTree(t: t)
         enableOrDisableButtons()
@@ -168,7 +186,7 @@ class RBViewController: UIViewController {
     }
     
     func clickToDelete(b:UIButton){
-        if t.parentForDelete != nil {
+        if t.nodeNeedDeleteAdjust != nil {
             return
         }
         if let i = Int(b.titleLabel!.text!){
@@ -177,7 +195,7 @@ class RBViewController: UIViewController {
     }
     
     func enableOrDisableButtons(){
-        if t.insertNode == nil && t.parentForDelete == nil{
+        if t.nodeNeedInsertAdjust == nil && t.nodeNeedDeleteAdjust == nil{
             addButton.isEnabled = true
             subtractButton.isEnabled = true
             adjustButton.isEnabled = false

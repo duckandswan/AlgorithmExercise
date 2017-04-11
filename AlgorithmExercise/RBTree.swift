@@ -262,7 +262,7 @@ class RBTree<T:Comparable>{
 //                                }
 //                                let parent = n.parent!
                                 parentForDelete = n.parent
-                                deleteNode = n
+                                deleteNode = nil
                                 trans(for: n, substitute: nil)
 //                                deleteLeafFix(n: parent)
                             }
@@ -593,6 +593,15 @@ class RBTree<T:Comparable>{
     func copy()->RBTree<T>{
         let t = RBTree<T>()
         t.root = copy(n: root,t:t)
+//        if  insertNode == nil {
+//            t.insertNode = nil
+//        }
+//        if deleteNode == nil{
+//            t.deleteNode = nil
+//        }
+//        if parentForDelete == nil{
+//            t.parentForDelete = nil
+//        }
         return t
     }
     

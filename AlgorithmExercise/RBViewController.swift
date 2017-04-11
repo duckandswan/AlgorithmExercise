@@ -44,17 +44,34 @@ class RBViewController: UIViewController {
 //            t.insert(e: i)
 //        }
         
-//        let rs = GKMersenneTwisterRandomSource()
-//        rs.seed = 100
-//        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
-//        
-//        (1...100).forEach{_ in
-//            t.insert(e: rd.nextInt())}
-
+        var arr:[Int] = []
+        let rs = GKMersenneTwisterRandomSource()
+        rs.seed = 104
+        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
         
-
-        (1...100).forEach{_ in
-            t.insert(e: Int(arc4random_uniform(1000)))}
+        (1...500).forEach{_ in
+            let i = rd.nextInt()
+            t.insert(e: i)
+            arr.append(i)
+        }
+        print("arr:\(arr)")
+        arr.forEach{delete(i: $0)}
+        
+//        var arr:[Int] = []
+//        (1...4).forEach{_ in
+//            let i = Int(arc4random_uniform(1000))
+//            t.insert(e: i)
+//            arr.append(i)
+//        }
+//        print("arr:\(arr)")
+//        arr.forEach{delete(i: $0)}
+        
+//        [585, 909, 152, 398, 654].forEach{t.insert(e: $0)}
+//        [585, 909, 152, 398, 654].forEach{t.delete(e: $0)}
+        
+//        [606, 634, 582, 200].forEach{t.insert(e: $0)}
+//        [606, 634, 582, 200].forEach{t.delete(e: $0)}
+        
 //        stride(from: 500, through: 100, by: -5).forEach { (i) in
 //            t.insert(e: i)
 //        }
@@ -91,6 +108,9 @@ class RBViewController: UIViewController {
         if let i = Int(tf.text!){
             treeArr.append(t.copy())
             t.insert(e: i,delayAdjust: true)
+            if isContinuous{
+                rotate()
+            }
             drawRBTree(t: t)
         }
         view.endEditing(true)
@@ -103,7 +123,9 @@ class RBViewController: UIViewController {
         }
     }
     
-    @IBAction func rotate(_ sender: UIBarButtonItem) {
+    var isContinuous = true
+    
+    @IBAction func rotate(_ sender: UIBarButtonItem){
         if t.insertNode != nil {
             treeArr.append(t.copy())
             t.insertAdjust()
@@ -113,6 +135,24 @@ class RBViewController: UIViewController {
         }else{
             return
         }
+        
+        drawRBTree(t: t)
+        enableOrDisableButtons()
+    }
+    
+    func rotate(){
+        while true {
+            if t.insertNode != nil {
+                treeArr.append(t.copy())
+                t.insertAdjust()
+            }else if t.parentForDelete != nil {
+                treeArr.append(t.copy())
+                t.deleteAdjust()
+            }else{
+                break
+            }
+        }
+        
         drawRBTree(t: t)
         enableOrDisableButtons()
     }
@@ -122,6 +162,9 @@ class RBViewController: UIViewController {
         t.delete(e: i)
         drawRBTree(t: t)
         enableOrDisableButtons()
+        if isContinuous{
+            rotate()
+        }
     }
     
     func clickToDelete(b:UIButton){

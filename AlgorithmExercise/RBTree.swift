@@ -10,18 +10,22 @@ import UIKit
 
 class RBNode<T:Comparable>{
     let element:T
+    var b = UIButton()
+    var leftLine = CAShapeLayer()
+    var rightLine = CAShapeLayer()
+    var isBlack = true
     init(element e:T,isBlack bool:Bool = true) {
         element = e
         isBlack = bool
     }
-    var isBlack = true
     
     var left:RBNode<T>?
     var right:RBNode<T>?
     weak var parent:RBNode<T>?
-    var b = UIButton()
-    var leftLine = CAShapeLayer()
-    var rightLine = CAShapeLayer()
+    
+    deinit {
+        print("a node is deleted!")
+    }
 }
 
 class RBTree<T:Comparable>{

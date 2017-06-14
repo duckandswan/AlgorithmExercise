@@ -43,6 +43,7 @@ class RBViewController: UIViewController {
 //        [445,435,437,433].forEach { (i) in
 //            t.insert(e: i)
 //        }
+  
         
 //        var arr:[Int] = []
 //        let rs = GKMersenneTwisterRandomSource()
@@ -58,19 +59,13 @@ class RBViewController: UIViewController {
 //        arr.forEach{delete(i: $0)}
         
         var arr:[Int] = []
-        (1...250).forEach{_ in
+        (1...120).forEach{_ in
             let i = Int(arc4random_uniform(1000))
             t.insert(e: i)
             arr.append(i)
         }
         print("arr:\(arr)")
 //        arr.forEach{delete(i: $0)}
-        
-//        [585, 909, 152, 398, 654].forEach{t.insert(e: $0)}
-//        [585, 909, 152, 398, 654].forEach{t.delete(e: $0)}
-        
-//        [606, 634, 582, 200].forEach{t.insert(e: $0)}
-//        [606, 634, 582, 200].forEach{t.delete(e: $0)}
         
 //        stride(from: 500, through: 100, by: -5).forEach { (i) in
 //            t.insert(e: i)

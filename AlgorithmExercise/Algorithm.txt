@@ -1,2 +1,1 @@
 RBTree
-1 normal insert

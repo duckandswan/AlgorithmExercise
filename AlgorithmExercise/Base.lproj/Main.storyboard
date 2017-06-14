@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Oa2-Rr-x35">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Oa2-Rr-x35">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -75,7 +75,7 @@
                     <navigationItem key="navigationItem" id="Fbf-H8-wgk">
                         <nil key="title"/>
                         <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="Ve1-LY-i4P">
-                            <rect key="frame" x="101" y="7" width="80" height="30"/>
+                            <rect key="frame" x="77" y="7" width="80" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -83,26 +83,31 @@
                         </textField>
                         <rightBarButtonItems>
                             <barButtonItem title="减" id="wXT-e6-Sci">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="subtract:" destination="X6o-Os-6oH" id="lnQ-9k-ScI"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="加" id="ue2-Pw-mG5">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="add:" destination="X6o-Os-6oH" id="iBf-uL-AXD"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="调" id="lkf-qU-Rvc">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="rotate:" destination="X6o-Os-6oH" id="3cZ-cn-3mQ"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="断" id="FLU-eF-x3S">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="resolve:" destination="X6o-Os-6oH" id="4dh-a0-ULL"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="退" id="gjU-6i-5IU">
+                            <barButtonItem title="退一步" id="gjU-6i-5IU">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="preStep:" destination="X6o-Os-6oH" id="E3l-hR-069"/>
                                 </connections>

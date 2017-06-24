@@ -40,9 +40,7 @@ class RBViewController: UIViewController {
 //        stride(from: 500, through: 100, by: -10).forEach { (i) in
 //            t.insert(e: i)
 //        }
-//        [445,435,437,433].forEach { (i) in
-//            t.insert(e: i)
-//        }
+
   
         
 //        var arr:[Int] = []

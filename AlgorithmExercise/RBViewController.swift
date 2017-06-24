@@ -107,14 +107,22 @@ class RBViewController: UIViewController {
         if t.nodeNeedInsertAdjust != nil {
             return
         }
-        if let i = Int(tf.text!){
-            addTree(newTree: t.copy())
-            t.insert(e: i,delayAdjust: true)
-            if isContinuous{
-                rotate()
-            }
-            drawRBTree(t: t)
+//        if let i = Int(tf.text!){
+//            addTree(newTree: t.copy())
+//            t.insert(e: i,delayAdjust: true)
+//            if isContinuous{
+//                rotate()
+//            }
+//            drawRBTree(t: t)
+//        }
+        let i = Int(tf.text!) ?? Int(arc4random_uniform(1000))
+        addTree(newTree: t.copy())
+        t.insert(e: i,delayAdjust: true)
+        if isContinuous{
+            rotate()
         }
+        drawRBTree(t: t)
+
         view.endEditing(true)
         enableOrDisableButtons()
     }
@@ -128,11 +136,11 @@ class RBViewController: UIViewController {
     var isContinuous = true
     
     @IBAction func resolve(_ sender: UIBarButtonItem) {
-        if sender.title == "断" {
-            sender.title = "连"
+        if sender.title == "✂︎" {
+            sender.title = "➤"
             isContinuous = false
         }else{
-            sender.title = "断"
+            sender.title = "✂︎"
             isContinuous = true
         }
     }
@@ -284,10 +292,6 @@ class RBViewController: UIViewController {
         guard let n = t.root else{
             return
         }
-//            let button = RBNodeButton(n: n)
-//            button.center =CGPoint(x: SCREEN_W / 2, y: button.frame.wi dth / 2)
-//        var queue = FIFOQueue<RBNode<T>?>()
-//        queue.enqueue(n)
         
         var row1:[RBNode<T>?] = [n]
         var rowArr = [row1]
@@ -318,24 +322,17 @@ class RBViewController: UIViewController {
                     addRBNode(n: n!, center: CGPoint(x: curX, y: curY),i: i)
                 }
                 let spaceX = nodeW * pow(2, CGFloat(i))
-//                print("spaceX: \(spaceX)")
+
                 if curX > scrollView.contentSize.width{
                     scrollView.contentSize.width = curX
                 }
                 curX += spaceX
-//                curX += nodeW
             }
             if curY > scrollView.contentSize.height{
                 scrollView.contentSize.height = curY
             }
             curY -= rowH
         }
-        
-        
-//        while let n = queue.dequeue(){
-//            let button = RBNodeButton(n: n)
-//            button.center = CGPoint(x: SCREEN_W / 2, y: button.frame.width / 2)
-//        }
         
     }
     

@@ -37,25 +37,13 @@ class RBViewController: UIViewController {
                                                                action: #selector(RBViewController.handlePinches(_:)))
         scrollView.addGestureRecognizer(pinchGestureRecognizer)
         
-//        stride(from: 500, through: 100, by: -10).forEach { (i) in
-//            t.insert(e: i)
-//        }
-
-  
+        randomWithFixedSeed()
         
-//        var arr:[Int] = []
-//        let rs = GKMersenneTwisterRandomSource()
-//        rs.seed = 104
-//        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
-//        
-//        (1...500).forEach{_ in
-//            let i = rd.nextInt()
-//            t.insert(e: i)
-//            arr.append(i)
-//        }
-//        print("arr:\(arr)")
-//        arr.forEach{delete(i: $0)}
-        
+        drawRBTree(t: t, isAnimated: false)
+        enableOrDisableButtons()
+    }
+    
+    func randomWithFixedSeed(){
         var arr:[Int] = []
         (1...120).forEach{_ in
             let i = Int(arc4random_uniform(1000))
@@ -63,13 +51,24 @@ class RBViewController: UIViewController {
             arr.append(i)
         }
         print("arr:\(arr)")
-//        arr.forEach{delete(i: $0)}
-        
-//        stride(from: 500, through: 100, by: -5).forEach { (i) in
-//            t.insert(e: i)
-//        }
-        drawRBTree(t: t, isAnimated: false)
-        enableOrDisableButtons()
+    }
+    
+    func randomWithNewSeed(){
+        stride(from: 500, through: 100, by: -10).forEach { (i) in
+            t.insert(e: i)
+        }
+
+        var arr:[Int] = []
+        let rs = GKMersenneTwisterRandomSource()
+        rs.seed = 104
+        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
+
+        (1...500).forEach{_ in
+            let i = rd.nextInt()
+            t.insert(e: i)
+            arr.append(i)
+        }
+        print("arr:\(arr)")
     }
     
     func handlePinches(_ sender: UIPinchGestureRecognizer){
@@ -105,19 +104,12 @@ class RBViewController: UIViewController {
         if t.nodeNeedInsertAdjust != nil {
             return
         }
-//        if let i = Int(tf.text!){
-//            addTree(newTree: t.copy())
-//            t.insert(e: i,delayAdjust: true)
-//            if isContinuous{
-//                rotate()
-//            }
-//            drawRBTree(t: t)
-//        }
+
         let i = Int(tf.text!) ?? Int(arc4random_uniform(1000))
         addTree(newTree: t.copy())
         t.insert(e: i,delayAdjust: true)
         if isContinuous{
-            rotate()
+            adjustToEnd()
         }
         drawRBTree(t: t)
 
@@ -158,18 +150,19 @@ class RBViewController: UIViewController {
         enableOrDisableButtons()
     }
     
-    func rotate(){
-        while true {
-            if t.nodeNeedInsertAdjust != nil {
-//                treeArr.append(t.copy())
-                t.insertAdjust()
-            }else if t.nodeNeedDeleteAdjust != nil {
-//                treeArr.append(t.copy())
-                t.deleteAdjust()
-            }else{
-                break
-            }
-        }
+    func adjustToEnd(){
+//        while true {
+//            if t.nodeNeedInsertAdjust != nil {
+////                treeArr.append(t.copy())
+//                t.insertAdjust()
+//            }else if t.nodeNeedDeleteAdjust != nil {
+////                treeArr.append(t.copy())
+//                t.deleteAdjust()
+//            }else{
+//                break
+//            }
+//        }
+        t.adjustToEnd()
         
         drawRBTree(t: t)
         enableOrDisableButtons()
@@ -182,7 +175,7 @@ class RBViewController: UIViewController {
         drawRBTree(t: t)
         enableOrDisableButtons()
         if isContinuous{
-            rotate()
+            adjustToEnd()
         }
     }
     

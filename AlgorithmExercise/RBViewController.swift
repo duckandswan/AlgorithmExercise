@@ -22,7 +22,7 @@ class RBViewController: UIViewController {
     
     
     @IBOutlet weak var tf: UITextField!
-    var t = RBTree<Int>()
+    var t = RBTreeAnimation<Int>()
     let scrollView = UIScrollView()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,9 +82,9 @@ class RBViewController: UIViewController {
         }
     }
     
-    var treeArr:[RBTree<Int>] = []
+    var treeArr:[RBTreeAnimation<Int>] = []
     
-    func addTree(newTree:RBTree<Int>){
+    func addTree(newTree:RBTreeAnimation<Int>){
         treeArr.append(newTree)
         if treeArr.count > 250{
             treeArr.remove(at: 0)
@@ -209,7 +209,7 @@ class RBViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func drawRBTree<T:Comparable>(t:RBTree<T>, isAnimated:Bool = true){
+    func drawRBTree<T>(t:RBTreeAnimation<T>, isAnimated:Bool = true){
         for v in scrollView.subviews{
             v.removeFromSuperview()
         }
@@ -249,7 +249,7 @@ class RBViewController: UIViewController {
             line.add(pathAppear, forKey: "make the path appear")
         }
 
-        func addRBNode(n:RBNode<T>,center:CGPoint,i:Int){
+        func addRBNode(n:RBNodeAnimation<T>,center:CGPoint,i:Int){
 //            let button = UIButton()
             let button = n.b
             button.frame.size = CGSize(width: nodeW, height: nodeW)
@@ -284,10 +284,10 @@ class RBViewController: UIViewController {
             return
         }
         
-        var row1:[RBNode<T>?] = [n]
+        var row1:[RBNodeAnimation<T>?] = [n]
         var rowArr = [row1]
         while true {
-            var row2:[RBNode<T>?] = []
+            var row2:[RBNodeAnimation<T>?] = []
             for n in row1 {
                 row2.append(n?.left)
                 row2.append(n?.right)

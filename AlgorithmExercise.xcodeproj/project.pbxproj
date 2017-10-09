@@ -21,9 +21,9 @@
 		E82599401E8D5A650073A90A /* RBTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = E825993F1E8D5A650073A90A /* RBTree.swift */; };
 		E83A7AA81E9BD7A000E42C7B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A7AA61E9BD7A000E42C7B /* UIColor+Extension.swift */; };
 		E83A7AA91E9BD7A000E42C7B /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A7AA71E9BD7A000E42C7B /* UIImage+Extension.swift */; };
-		E8490D2C1E8FADB0002A23D4 /* Algorithm.txt in Resources */ = {isa = PBXBuildFile; fileRef = E8490D2B1E8FADB0002A23D4 /* Algorithm.txt */; };
 		E85A79BB1F6928D10005D878 /* AlgorithmExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85A79BA1F6928D10005D878 /* AlgorithmExerciseTests.swift */; };
 		E8D602901E9AB35400DAD9DA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D6028F1E9AB35400DAD9DA /* Extension.swift */; };
+		E8E05C861F89B4F200E69343 /* RBTreeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E05C851F89B4F200E69343 /* RBTreeAnimation.swift */; };
 		E8E20D371E8DD49500C50230 /* RBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E20D361E8DD49500C50230 /* RBViewController.swift */; };
 		E8E20D391E8DDD3C00C50230 /* FIFOQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E20D381E8DDD3C00C50230 /* FIFOQueue.swift */; };
 		E8E20D3B1E8EA53D00C50230 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E20D3A1E8EA53D00C50230 /* CGPoint+Extensions.swift */; };
@@ -56,11 +56,11 @@
 		E825993F1E8D5A650073A90A /* RBTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBTree.swift; sourceTree = "<group>"; };
 		E83A7AA61E9BD7A000E42C7B /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		E83A7AA71E9BD7A000E42C7B /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
-		E8490D2B1E8FADB0002A23D4 /* Algorithm.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Algorithm.txt; sourceTree = "<group>"; };
 		E85A79B81F6928D10005D878 /* AlgorithmExerciseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlgorithmExerciseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E85A79BA1F6928D10005D878 /* AlgorithmExerciseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlgorithmExerciseTests.swift; sourceTree = "<group>"; };
 		E85A79BC1F6928D10005D878 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8D6028F1E9AB35400DAD9DA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		E8E05C851F89B4F200E69343 /* RBTreeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTreeAnimation.swift; sourceTree = "<group>"; };
 		E8E20D361E8DD49500C50230 /* RBViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBViewController.swift; sourceTree = "<group>"; };
 		E8E20D381E8DDD3C00C50230 /* FIFOQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIFOQueue.swift; sourceTree = "<group>"; };
 		E8E20D3A1E8EA53D00C50230 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
@@ -128,8 +128,8 @@
 				E825993D1E8D48240073A90A /* Array+Extension.swift */,
 				E825993F1E8D5A650073A90A /* RBTree.swift */,
 				E8E20D381E8DDD3C00C50230 /* FIFOQueue.swift */,
-				E8490D2B1E8FADB0002A23D4 /* Algorithm.txt */,
 				E810A6E61F64045E00E42EE7 /* BTree.swift */,
+				E8E05C851F89B4F200E69343 /* RBTreeAnimation.swift */,
 			);
 			name = "Data Structure";
 			sourceTree = "<group>";
@@ -249,7 +249,6 @@
 			files = (
 				E825992B1E8D3BFF0073A90A /* LaunchScreen.storyboard in Resources */,
 				E82599281E8D3BFF0073A90A /* Assets.xcassets in Resources */,
-				E8490D2C1E8FADB0002A23D4 /* Algorithm.txt in Resources */,
 				E82599261E8D3BFF0073A90A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +271,7 @@
 				E82599231E8D3BFF0073A90A /* ViewController.swift in Sources */,
 				E810A6E71F64045E00E42EE7 /* BTree.swift in Sources */,
 				E825993A1E8D3C9C0073A90A /* QuickSort.swift in Sources */,
+				E8E05C861F89B4F200E69343 /* RBTreeAnimation.swift in Sources */,
 				E82599211E8D3BFF0073A90A /* AppDelegate.swift in Sources */,
 				E8D602901E9AB35400DAD9DA /* Extension.swift in Sources */,
 				E82599401E8D5A650073A90A /* RBTree.swift in Sources */,
@@ -507,6 +507,7 @@
 				E85A79C01F6928D10005D878 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

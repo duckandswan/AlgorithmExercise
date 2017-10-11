@@ -126,7 +126,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6fV-gk-Q1U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2668" y="-252.32383808095955"/>
+            <point key="canvasLocation" x="2612" y="-1197"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fnk-VC-bV9">
@@ -145,6 +145,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yIW-z1-xrT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="764" y="-564.46776611694156"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="9qJ-Xf-LiW">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="7V2-v0-5Gq" customClass="RBViewController" customModule="AlgorithmExercise" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Gdh-Du-tpu"/>
+                        <viewControllerLayoutGuide type="bottom" id="JCI-fW-iu0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lti-PK-wnF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="fWs-Xg-ioz"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="qYM-mM-yt5">
+                        <nil key="title"/>
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="Mqp-Pl-pzf">
+                            <rect key="frame" x="147.5" y="7" width="80" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <rightBarButtonItems>
+                            <barButtonItem title="−" id="aNs-Vt-fAn">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="subtract:" destination="7V2-v0-5Gq" id="jVF-2U-i0N"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="+" id="ttt-zd-rbF">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="add:" destination="7V2-v0-5Gq" id="Vbb-Oe-fI5"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="☭" id="syE-TX-5hb">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="rotate:" destination="7V2-v0-5Gq" id="1ae-3u-568"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="✂︎" id="np4-3N-fRs">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="resolve:" destination="7V2-v0-5Gq" id="1rx-fd-v0y"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="⬅︎" id="Vz7-qo-aY3">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="preStep:" destination="7V2-v0-5Gq" id="DtG-2p-gYZ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addButton" destination="ttt-zd-rbF" id="LZ9-zU-jBS"/>
+                        <outlet property="adjustButton" destination="syE-TX-5hb" id="WhE-ZF-LMB"/>
+                        <outlet property="preButton" destination="Vz7-qo-aY3" id="bEI-xv-Ak4"/>
+                        <outlet property="subtractButton" destination="aNs-Vt-fAn" id="65Z-kT-Cuu"/>
+                        <outlet property="tf" destination="Mqp-Pl-pzf" id="mf1-x8-GGM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tEy-C6-NqF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2612" y="-455"/>
         </scene>
     </scenes>
 </document>

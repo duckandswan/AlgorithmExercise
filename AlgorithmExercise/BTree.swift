@@ -21,7 +21,7 @@ class BNode<T:Comparable>{
     var keys:[T] = []
     
     deinit {
-        print("a node is deleted!")
+        print("a node(\(keys)) is deleted!")
     }
 }
 
@@ -97,73 +97,91 @@ class BTree<T:Comparable>{
         }
     }
     
+
+    
+    
+//    func delete(n:BNode<T>,k:T){
+//        var childIndex:Int
+//        if let (j,_) = n.keys.enumerated().first(where: {(index,key) in key >= k}){
+//            childIndex = j
+//            if n.keys[childIndex] == k{
+//                deleteNodeWithKeyIndex(n: n, i: childIndex)
+//                return
+//            }
+//        }else{
+//            childIndex = n.children.count
+//        }
+//
+//        if n.children[childIndex].keys.count > BNode<T>.t - 1{
+//            delete(n: n.children[childIndex], k: k)
+//        }else{
+//            var keyIndex:Int
+//            var brotherIndex:Int
+//            if childIndex != n.children.count{
+//                brotherIndex = childIndex + 1
+//                keyIndex = childIndex
+//                let brother = n.children[brotherIndex]
+//                if brother.keys.count > BNode<T>.t - 1 {
+//                    transToLeft(n: n, i: keyIndex)
+//                }else{
+//                    merge(n: n, i: keyIndex)
+//                }
+//                delete(n: n.children[keyIndex], k: k)
+//            }else{
+//                brotherIndex = childIndex - 1
+//                keyIndex = brotherIndex
+//                let brother = n.children[brotherIndex]
+//                if brother.keys.count > BNode<T>.t - 1 {
+//                    transToRight(n: n, i: keyIndex)
+//                    delete(n: n.children[keyIndex + 1], k: k)
+//                }else{
+//                    merge(n: n, i: keyIndex)
+//                    delete(n: n.children[keyIndex], k: k)
+//                }
+//            }
+//        }
+//    }
+    
     func delete(k:T){
         let x = root
         delete(n: x, k: k)
     }
     
-    
-    func delete(n:BNode<T>,k:T){
-        var childIndex:Int
-        if let (j,_) = n.keys.enumerated().first(where: {(index,key) in key >= k}){
-            childIndex = j
-            if n.keys[childIndex] == k{
-                deleteNodeWithKeyIndex(n: n, i: childIndex)
+    private func delete(n:BNode<T>,k:T){
+        if let (i,_) = n.keys.enumerated().first(where: {(index,key) in key >= k}){
+            if n.keys[i] == k{
+                deleteNodeWithKeyIndex(n: n, i: i)
                 return
             }
+            let node = transToLeft(n: n, i: i)
+            delete(n: node, k: k)
         }else{
-            childIndex = n.children.count
-        }
-
-        if n.children[childIndex].keys.count > BNode<T>.t - 1{
-            delete(n: n.children[childIndex], k: k)
-        }else{
-            var keyIndex:Int
-            var brotherIndex:Int
-            if childIndex != n.children.count{
-                brotherIndex = childIndex + 1
-                keyIndex = childIndex
-                let brother = n.children[brotherIndex]
-                if brother.keys.count > BNode<T>.t - 1 {
-                    transToLeft(n: n, i: keyIndex)
-                }else{
-                    merge(n: n, i: keyIndex)
-                }
-                delete(n: n.children[keyIndex], k: k)
-            }else{
-                brotherIndex = childIndex - 1
-                keyIndex = brotherIndex
-                let brother = n.children[brotherIndex]
-                if brother.keys.count > BNode<T>.t - 1 {
-                    transToRight(n: n, i: keyIndex)
-                    delete(n: n.children[keyIndex + 1], k: k)
-                }else{
-                    merge(n: n, i: keyIndex)
-                    delete(n: n.children[keyIndex], k: k)
-                }
-            }
+            let i = n.keys.count - 1
+            let node = transToRight(n: n, i: i)
+            delete(n: node, k: k)
         }
     }
+
     
-    func deleteNodeWithKeyIndex(n:BNode<T>,i:Int){
+    private func deleteNodeWithKeyIndex(n:BNode<T>,i:Int){
         if n.isLeaf{
             n.keys.remove(at: i)
         }else{
             if n.children[i].keys.count > BNode<T>.t - 1{
                 n.keys[i] = deleteMaxKey(n: n.children[i])
             }else if n.children[i + 1].keys.count > BNode<T>.t - 1{
-                n.keys[i] = deleteMinKey(n: n.children[i-1])
+                n.keys[i] = deleteMinKey(n: n.children[i+1])
             }else{
-                merge(n: n, i: i)
-                deleteNodeWithKeyIndex(n: n.children[i], i:BNode<T>.t)
+                let node = merge(n: n, i: i)
+                deleteNodeWithKeyIndex(n: node, i:(BNode<T>.t - 1))
             }
         }
     }
     
-    func merge(n:BNode<T>,i:Int){
+    private func merge(n:BNode<T>,i:Int)->BNode<T>{
         let key = n.keys.remove(at: i)
         let n1 = n.children[i]
-        let n2 = n.children.remove(at: i-1)
+        let n2 = n.children.remove(at: i+1)
         n1.keys.append(key)
         for key in n2.keys{
             n1.keys.append(key)
@@ -171,75 +189,145 @@ class BTree<T:Comparable>{
         for child in n2.children{
             n1.children.append(child)
         }
+        
+        if n === root && n.keys.count == 0{
+            root = n1
+        }
+        return n1
     }
     
-    func transToRight(n:BNode<T>,i:Int){
+    private func transToRight(n:BNode<T>,i:Int)->BNode<T>{
         let n1 = n.children[i]
         let n2 = n.children[i+1]
-        let key = n.keys[i]
-        let child = n1.children.removeLast()
-        n.keys[i] = n1.keys.removeLast()
-        n2.keys.insert(key, at: 0)
-        n2.children.insert(child, at: 0)
+        if n2.keys.count > BNode<T>.t - 1{
+            return n2
+        }else{
+            if n1.keys.count > BNode<T>.t - 1{
+                let key = n.keys[i]
+                n.keys[i] = n1.keys.removeLast()
+                n2.keys.insert(key, at: 0)
+                if !n1.isLeaf{
+                    let child = n1.children.removeLast()
+                    n2.children.insert(child, at: 0)
+                }
+                return n2
+            }else{
+                let node = merge(n: n, i: i)
+                return node
+            }
+        }
     }
     
-    func transToLeft(n:BNode<T>,i:Int){
+    private func transToLeft(n:BNode<T>,i:Int)->BNode<T>{
         let n1 = n.children[i]
         let n2 = n.children[i+1]
-        let key = n2.keys[0]
-        let child = n2.children.remove(at: 0)
-        n.keys[i] = n2.keys.remove(at: 0)
-        n1.keys.append(key)
-        n1.children.append(child)
+        if n1.keys.count > BNode<T>.t - 1{
+            return n1
+        }else{
+            if n2.keys.count > BNode<T>.t - 1{
+                let key = n.keys[i]
+                if !n2.isLeaf{
+                    let child = n2.children.remove(at: 0)
+                    n1.children.append(child)
+                }
+                n.keys[i] = n2.keys.remove(at: 0)
+                n1.keys.append(key)
+                return n1
+            }else{
+                let node = merge(n: n, i: i)
+                return node
+            }
+        }
     }
     
-    func deleteMaxKey(n:BNode<T>)->T{
+    private func deleteMaxKey(n:BNode<T>)->T{
         if n.isLeaf{
             return n.keys.removeLast()
         }else{
-            let lastChild = n.children.last!
-            if lastChild.keys.count > BNode<T>.t - 1{
-                return deleteMaxKey(n: n.children.last!)
-            }else{
-                let secondLastChild = n.children[n.children.count - 2]
-                if secondLastChild.keys.count > BNode<T>.t - 1{
-                    let key = n.keys.last!
-                    let child = secondLastChild.children.removeLast()
-                    n.keys[n.keys.count - 1] = secondLastChild.keys.removeLast()
-                    lastChild.keys.insert(key, at: 0)
-                    lastChild.children.insert(child, at: 0)
-                    return deleteMaxKey(n: lastChild)
-                }else{
-                    merge(n: n, i: n.keys.count - 1)
-                    return deleteMaxKey(n: n.children.last!)
-                }
-            }
+            let node = transToRight(n: n, i: n.keys.count - 1)
+            return deleteMaxKey(n: node)
         }
     }
     
-    func deleteMinKey(n:BNode<T>)->T{
+    private func deleteMinKey(n:BNode<T>)->T{
         if n.isLeaf{
             return n.keys.remove(at: 0)
         }else{
-            let firstChild = n.children.first!
-            if firstChild.keys.count > BNode<T>.t - 1{
-                return deleteMinKey(n: n.children.first!)
-            }else{
-                let secondFirstChild = n.children[1]
-                if secondFirstChild.keys.count > BNode<T>.t - 1{
-                    let key = n.keys.first!
-                    let child = secondFirstChild.children.remove(at: 0)
-                    n.keys[0] = secondFirstChild.keys.remove(at: 0)
-                    firstChild.keys.append(key)
-                    firstChild.children.append(child)
-                    return deleteMinKey(n: firstChild)
-                }else{
-                    merge(n: n, i: 0)
-                    return deleteMinKey(n: n.children.first!)
-                }
-            }
+            let node = transToLeft(n: n, i: 0)
+            return deleteMinKey(n: node)
         }
     }
+
+
+
+    
+//    func transToRight(n:BNode<T>,i:Int){
+//        let n1 = n.children[i]
+//        let n2 = n.children[i+1]
+//        let key = n.keys[i]
+//        let child = n1.children.removeLast()
+//        n.keys[i] = n1.keys.removeLast()
+//        n2.keys.insert(key, at: 0)
+//        n2.children.insert(child, at: 0)
+//    }
+//
+//    func transToLeft(n:BNode<T>,i:Int){
+//        let n1 = n.children[i]
+//        let n2 = n.children[i+1]
+//        let key = n2.keys[0]
+//        let child = n2.children.remove(at: 0)
+//        n.keys[i] = n2.keys.remove(at: 0)
+//        n1.keys.append(key)
+//        n1.children.append(child)
+//    }
+    
+//    func deleteMaxKey(n:BNode<T>)->T{
+//        if n.isLeaf{
+//            return n.keys.removeLast()
+//        }else{
+//            let lastChild = n.children.last!
+//            if lastChild.keys.count > BNode<T>.t - 1{
+//                return deleteMaxKey(n: n.children.last!)
+//            }else{
+//                let secondLastChild = n.children[n.children.count - 2]
+//                if secondLastChild.keys.count > BNode<T>.t - 1{
+//                    let key = n.keys.last!
+//                    let child = secondLastChild.children.removeLast()
+//                    n.keys[n.keys.count - 1] = secondLastChild.keys.removeLast()
+//                    lastChild.keys.insert(key, at: 0)
+//                    lastChild.children.insert(child, at: 0)
+//                    return deleteMaxKey(n: lastChild)
+//                }else{
+//                    merge(n: n, i: n.keys.count - 1)
+//                    return deleteMaxKey(n: n.children.last!)
+//                }
+//            }
+//        }
+//    }
+    
+//    func deleteMinKey(n:BNode<T>)->T{
+//        if n.isLeaf{
+//            return n.keys.remove(at: 0)
+//        }else{
+//            let firstChild = n.children.first!
+//            if firstChild.keys.count > BNode<T>.t - 1{
+//                return deleteMinKey(n: n.children.first!)
+//            }else{
+//                let secondFirstChild = n.children[1]
+//                if secondFirstChild.keys.count > BNode<T>.t - 1{
+//                    let key = n.keys.first!
+//                    let child = secondFirstChild.children.remove(at: 0)
+//                    n.keys[0] = secondFirstChild.keys.remove(at: 0)
+//                    firstChild.keys.append(key)
+//                    firstChild.children.append(child)
+//                    return deleteMinKey(n: firstChild)
+//                }else{
+//                    merge(n: n, i: 0)
+//                    return deleteMinKey(n: n.children.first!)
+//                }
+//            }
+//        }
+//    }
     
     private func deepTraverse(n:BNode<T>){
         if n.isLeaf{

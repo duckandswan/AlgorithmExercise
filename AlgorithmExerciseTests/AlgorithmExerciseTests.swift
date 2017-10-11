@@ -29,8 +29,7 @@ class AlgorithmExerciseTests: XCTestCase {
     func testBTree() {
         let btree = BTree<Int>()
         var arr:[Int] = []
-        (1...150).forEach{_ in
-            let i = Int(arc4random_uniform(1000))
+        ALGUtils.randomArrWithNewSeed(n: 150).forEach{i in
             arr.append(i)
             btree.insert(k: i)
 //            print(i)
@@ -39,6 +38,10 @@ class AlgorithmExerciseTests: XCTestCase {
         for i in arr {
             print(i, terminator:" ")
         }
+        btree.traverse()
+        
+        (0..<150).forEach({btree.delete(k: arr[$0])})
+        
         btree.traverse()
     }
 

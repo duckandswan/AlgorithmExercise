@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GameKit
+
 
 let SCREEN_H = UIScreen.main.bounds.size.height
 let SCREEN_W  = UIScreen.main.bounds.size.width
@@ -31,6 +33,21 @@ class ALGUtils{
             assert(arr[i] <= arr[i + 1], "\(i) and \(i + 1) elements \(arr[i]) and \(arr[i + 1]) have errors")
         }
         print("\norder is right")
+    }
+    
+    static func randomArrWithNewSeed(n:Int)->[Int]{
+        
+        var arr:[Int] = []
+        let rs = GKMersenneTwisterRandomSource()
+        rs.seed = 105
+        let rd = GKRandomDistribution(randomSource: rs, lowestValue: 0, highestValue: 1000)
+        
+        (1...n).forEach{_ in
+            let i = rd.nextInt()
+            arr.append(i)
+        }
+        print("arr:\(arr)")
+        return arr
     }
 }
 

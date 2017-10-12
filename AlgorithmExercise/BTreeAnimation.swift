@@ -235,7 +235,7 @@ class BTreeAnimation<T:Comparable>{
     }
     
     func level()->Int{
-        var i = 1
+        var i = 0
         var x = root
         while !x.isLeaf{
             x = x.children.first!

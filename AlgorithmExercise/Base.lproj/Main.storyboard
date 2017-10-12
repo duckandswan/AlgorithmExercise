@@ -41,6 +41,26 @@
                                             <segue destination="X6o-Os-6oH" kind="show" id="IMr-oU-gAt"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="IKO-2S-vF1" style="IBUITableViewCellStyleDefault" id="vV6-1Y-k3b">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vV6-1Y-k3b" id="0f7-Lb-Iqe">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="BTree" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IKO-2S-vF1">
+                                                    <rect key="frame" x="16" y="0.0" width="344" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="7V2-v0-5Gq" kind="show" id="qdu-q2-uHG"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -149,7 +169,7 @@
         <!--View Controller-->
         <scene sceneID="9qJ-Xf-LiW">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="7V2-v0-5Gq" customClass="RBViewController" customModule="AlgorithmExercise" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="7V2-v0-5Gq" customClass="BViewController" customModule="AlgorithmExercise" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Gdh-Du-tpu"/>
                         <viewControllerLayoutGuide type="bottom" id="JCI-fW-iu0"/>
@@ -175,45 +195,23 @@
                         <rightBarButtonItems>
                             <barButtonItem title="−" id="aNs-Vt-fAn">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="subtract:" destination="7V2-v0-5Gq" id="jVF-2U-i0N"/>
-                                </connections>
                             </barButtonItem>
                             <barButtonItem title="+" id="ttt-zd-rbF">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="add:" destination="7V2-v0-5Gq" id="Vbb-Oe-fI5"/>
-                                </connections>
                             </barButtonItem>
                             <barButtonItem title="☭" id="syE-TX-5hb">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="rotate:" destination="7V2-v0-5Gq" id="1ae-3u-568"/>
-                                </connections>
                             </barButtonItem>
                             <barButtonItem title="✂︎" id="np4-3N-fRs">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="resolve:" destination="7V2-v0-5Gq" id="1rx-fd-v0y"/>
-                                </connections>
                             </barButtonItem>
                             <barButtonItem title="⬅︎" id="Vz7-qo-aY3">
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="preStep:" destination="7V2-v0-5Gq" id="DtG-2p-gYZ"/>
-                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="addButton" destination="ttt-zd-rbF" id="LZ9-zU-jBS"/>
-                        <outlet property="adjustButton" destination="syE-TX-5hb" id="WhE-ZF-LMB"/>
-                        <outlet property="preButton" destination="Vz7-qo-aY3" id="bEI-xv-Ak4"/>
-                        <outlet property="subtractButton" destination="aNs-Vt-fAn" id="65Z-kT-Cuu"/>
-                        <outlet property="tf" destination="Mqp-Pl-pzf" id="mf1-x8-GGM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tEy-C6-NqF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

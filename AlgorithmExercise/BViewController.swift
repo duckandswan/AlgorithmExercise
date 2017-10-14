@@ -41,7 +41,7 @@ class BViewController: UIViewController {
     
     func randomWithFixedSeed(){
         var arr:[Int] = []
-        ALGUtils.randomArrWithNewSeed(n: 20).forEach{i in
+        ALGUtils.randomArrWithNewSeed(n: 25).forEach{i in
             arr.append(i)
             tree.insert(k: i)
         }
@@ -106,14 +106,16 @@ class BViewController: UIViewController {
         
         let level = t.level()
         let t = BNodeAnimation<T>.t
-        let gap = CGFloat(2 * t - 1) * keyW * CGFloat(level)
         nodeL = keyW * CGFloat(2*t-1)
-        let fullLength = gap * pow(CGFloat(2*t-1), CGFloat(level)) + 2 * keyW
-        let point = CGPoint(x: fullLength / 2, y: 3 * keyW / 2)
+        var fullLength = nodeL * pow(CGFloat(2*t), CGFloat(level)) + 2 * keyW
+        if fullLength < SCREEN_W{
+            fullLength = SCREEN_W
+        }
+        let center = CGPoint(x: fullLength / 2, y: 3 * keyW / 2)
         
         scrollView.contentSize.width = fullLength
         
-        draw(n: tree.root, center: point, level: level)
+        draw(n: tree.root, center: center, level: level)
         
     }
     
@@ -123,7 +125,7 @@ class BViewController: UIViewController {
         
         let t = BNodeAnimation<T>.t
         //next level gap
-        let gap = keyW * pow(CGFloat(2*t-1), CGFloat(level))
+        
         let bgv = UIView(frame: CGRect(x: 0, y: 0, width: nodeL, height: keyW))
         bgv.backgroundColor = color
         scrollView.addSubview(bgv)
@@ -149,13 +151,14 @@ class BViewController: UIViewController {
         
         func addLine(p1:CGPoint,p2:CGPoint){
             let line = CAShapeLayer()
+            line.zPosition = -1000
             let linePath = UIBezierPath()
             linePath.move(to: p1)
             linePath.addLine(to: p2)
             line.lineWidth = 1.0
             let originalPath = line.path
             line.path = linePath.cgPath
-            line.strokeColor = UIColor.blue.cgColor
+            line.strokeColor = UIColor.black.cgColor
             scrollView.layer.addSublayer(line)
             
             let pathAppear = CABasicAnimation(keyPath: "path")
@@ -172,10 +175,14 @@ class BViewController: UIViewController {
             center1.x += keyW
         }
         if !n.isLeaf{
-            var center2 = CGPoint(x: center.x - gap * CGFloat(t - 1) - 1/2*gap + nodeL/2, y: center.y + 2*keyW)
+            let childL = nodeL * pow(CGFloat(2*t), CGFloat(level-1))
+            var center2 = CGPoint(x: center.x - childL * CGFloat(t) + childL/2, y: center.y + 2*keyW)
+            var p1 = CGPoint(x: center.x - nodeL/2, y: center.y )
             for (i,child) in n.children.enumerated(){
                 draw(n: child, center: center2, level: level - 1,color:colorArr[i%3])
-                center2.x += gap
+                addLine(p1: p1, p2: center2)
+                center2.x += childL
+                p1.x += keyW
             }
         }
         
